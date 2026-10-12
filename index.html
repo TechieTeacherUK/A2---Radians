@@ -1,1 +1,567 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radians – Edexcel 9MA0 Practice</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+body{font-family:Georgia,'Times New Roman',serif}
+.ui{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+details>summary{cursor:pointer;list-style:none}details>summary::-webkit-details-marker{display:none}
+details[open]>summary .chev{transform:rotate(90deg)}.chev{transition:transform .15s}
+.tab.on{background:#1e1b4b;color:#fff}.tier.on{outline:2px solid #1e1b4b}
+canvas{width:100%;aspect-ratio:3/2;background:#fff;border:1px solid #cbd5e1;border-radius:6px}
+.opt.sel{border-color:#4338ca;background:#eef2ff}.opt.ok{border-color:#059669;background:#ecfdf5}.opt.bad{border-color:#dc2626;background:#fef2f2}
+.body p+p{margin-top:.6rem}.body ul{list-style:disc;margin:.5rem 0 0 1.25rem}.body li{margin-top:.25rem}
+*:focus-visible{outline:3px solid #4338ca;outline-offset:2px}
+canvas.sq{aspect-ratio:1/1;max-width:420px}
+canvas.drag{aspect-ratio:1/1;max-width:520px;touch-action:none;cursor:crosshair}
+body.hc{background:#fff!important;color:#000!important}body.hc .text-slate-500,body.hc .text-slate-600,body.hc .text-slate-700{color:#111!important}
+body.hc [class*=border-slate]{border-color:#000!important}body.hc .bg-slate-100{background:#fff!important}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+<header class="bg-indigo-950 text-white">
+ <div class="max-w-4xl mx-auto px-4 py-5">
+  <h1 class="text-2xl sm:text-3xl font-bold">Radians</h1>
+  <p class="ui text-indigo-200 text-sm mt-1">Edexcel A-Level Mathematics 9MA0 · Topic 5.4 Radian measure · Practice after your lesson</p>
+  <div class="ui flex gap-2 mt-3 text-xs"><button id="tsz" aria-pressed="false" class="rounded border border-indigo-300 px-3 py-1">Larger text</button><button id="thc" aria-pressed="false" class="rounded border border-indigo-300 px-3 py-1">High contrast</button></div>
+ </div>
+</header>
+<nav class="ui bg-white border-b border-slate-200 sticky top-0 z-10">
+ <div class="max-w-4xl mx-auto px-2 py-2 flex gap-2">
+  <button class="tab on flex-1 rounded-md py-2 text-sm font-medium" data-tab="theory">Learn it</button>
+  <button class="tab flex-1 rounded-md py-2 text-sm font-medium bg-slate-100" data-tab="examples">Worked examples</button>
+  <button class="tab flex-1 rounded-md py-2 text-sm font-medium bg-slate-100" data-tab="practice">Practise it</button>
+  <button class="tab flex-1 rounded-md py-2 text-sm font-medium bg-slate-100" data-tab="spot">Spot the mistake</button>
+ </div>
+</nav>
 
+<main class="max-w-4xl mx-auto px-4 py-6">
+<section id="theory" class="space-y-3">
+ <div class="ui bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-sm leading-relaxed">
+  <b>How to use this page.</b> Open a topic below and read the short explanation. Under it you will find a diagram you can change. On the main sliders you are asked to <b>predict first</b>, so decide what you think will happen before you look. The diagram and the working beside it update as you move things.
+ </div>
+ <div id="cards" class="space-y-3"></div>
+</section>
+<section id="examples" class="space-y-4 hidden">
+ <div class="ui bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-sm leading-relaxed">Try each question yourself first. Then press <b>Show next step</b> to reveal a hint, and again for the working. Every step says what we do and why.</div>
+</section>
+<section id="practice" class="hidden ui">
+ <div class="grid grid-cols-4 gap-2 mb-4 text-center">
+  <div class="bg-white rounded-lg border border-slate-200 p-2"><div class="text-xs text-slate-500">Score</div><div id="sScore" class="text-xl font-bold text-indigo-900">0</div></div>
+  <div class="bg-white rounded-lg border border-slate-200 p-2"><div class="text-xs text-slate-500">Streak</div><div id="sStreak" class="text-xl font-bold text-indigo-900">0</div></div>
+  <div class="bg-white rounded-lg border border-slate-200 p-2"><div class="text-xs text-slate-500">Best streak</div><div id="sBest" class="text-xl font-bold text-indigo-900">0</div></div>
+  <div class="bg-white rounded-lg border border-slate-200 p-2"><div class="text-xs text-slate-500">Accuracy</div><div id="sAcc" class="text-xl font-bold text-indigo-900">–</div></div>
+ </div>
+ <div class="flex flex-wrap items-center gap-2 mb-4 text-sm">
+  <button class="tier on rounded-full px-4 py-1.5 bg-white border border-slate-300" data-tier="all">All levels</button>
+  <button class="tier rounded-full px-4 py-1.5 bg-sky-50 border border-sky-300" data-tier="bronze">Fundamental · 1 pt</button>
+  <button class="tier rounded-full px-4 py-1.5 bg-indigo-50 border border-indigo-300" data-tier="silver">Intermediate · 2 pts</button>
+  <button class="tier rounded-full px-4 py-1.5 bg-indigo-200 border border-indigo-500" data-tier="gold">Exam mastery · 3 pts</button>
+  <button class="tier rounded-full px-4 py-1.5 bg-slate-800 text-white border border-slate-800" data-tier="exam">Exam-style, multi-part</button>
+  <label class="ml-auto">Topic <select id="topicSel" class="border border-slate-300 rounded px-2 py-1"></select></label>
+ </div>
+ <div id="qBox" class="bg-white rounded-lg border border-slate-200 p-5"></div>
+ <div id="rep"></div>
+</section>
+<section id="spot" class="hidden ui">
+ <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-sm leading-relaxed mb-4">Each question shows a student's working with <b>one mistake</b>. Click the first line that goes wrong. Then read why it is wrong and how to fix it. These are the mistakes that cost the most marks in the exam.</div>
+ <div id="spBox" class="bg-white rounded-lg border border-slate-200 p-5"></div>
+</section>
+</main>
+<footer class="ui text-center text-xs text-slate-500 pb-8">Questions are made up fresh each time. You can type answers as fractions (3/2) or decimals (1.5). Type π as pi.</footer>
+
+<script>
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[rnd(0,a.length-1)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+function ty(el){if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})}
+const N=n=>String(+(+n).toFixed(2));
+function F(n){if(Number.isInteger(n))return String(n);for(let d=2;d<=12;d++){const k=n*d;if(Math.abs(k-Math.round(k))<1e-9){const r=Math.round(k);return(r<0?'-':'')+'\\frac{'+Math.abs(r)+'}{'+d+'}'}}return N(n)}
+const sg=n=>n<0?String(n):'+'+n;
+const lin=(a,b)=>{if(a===0)return String(b);let s=a===1?'x':a===-1?'-x':a+'x';return b>0?s+'+'+b:b<0?s+b:s};
+const xm=p=>p===0?'x':p>0?'x-'+p:'x+'+(-p);
+const pt=(x,y)=>'('+F(x)+', '+F(y)+')';
+const P=(x,y,l,c)=>Object.assign([x,y],{l,c});
+function nums(s){s=s.replace(/[−–]/g,'-');const m=s.match(/-?\d*\.?\d+\s*\/\s*-?\d*\.?\d+|-?\d*\.?\d+/g)||[];return m.map(t=>t.includes('/')?t.split('/').reduce((a,b)=>parseFloat(a)/parseFloat(b)):parseFloat(t))}
+
+/* ---------- plotting ---------- */
+function plot(cv,curves,v){
+ const dpr=window.devicePixelRatio||1,W=cv.clientWidth||600,H=cv.clientHeight||400;
+ cv.width=W*dpr;cv.height=H*dpr;const c=cv.getContext('2d');c.scale(dpr,dpr);
+ if(v.fit){const b=v.fit,w=Math.max(8,b.x1-b.x0,(b.y1-b.y0)*(W/H)),mx=(b.x0+b.x1)/2;v={...v,xmin:mx-w/2,xmax:mx+w/2,cy:(b.y0+b.y1)/2}}
+ const sc=W/(v.xmax-v.xmin),ymax=v.cy+H/sc/2,ymin=v.cy-H/sc/2,X=x=>(x-v.xmin)*sc,Y=y=>H-(y-ymin)*sc;
+ c.clearRect(0,0,W,H);c.font='11px system-ui';c.lineWidth=1;
+ const rg=v.xmax-v.xmin,pw=Math.pow(10,Math.floor(Math.log10(rg/10))),rr=rg/10/pw,st=Math.max(1,(rr<1.5?1:rr<3.5?2:rr<7.5?5:10)*pw);
+ for(let i=Math.ceil(v.xmin/st)*st;i<=v.xmax;i+=st){c.strokeStyle=i?'#e2e8f0':'#334155';c.beginPath();c.moveTo(X(i),0);c.lineTo(X(i),H);c.stroke();if(i){c.fillStyle='#64748b';c.fillText(N(i),X(i)+2,Y(0)+12)}}
+ for(let j=Math.ceil(ymin/st)*st;j<=ymax;j+=st){c.strokeStyle=j?'#e2e8f0':'#334155';c.beginPath();c.moveTo(0,Y(j));c.lineTo(W,Y(j));c.stroke();if(j){c.fillStyle='#64748b';c.fillText(N(j),X(0)+3,Y(j)-2)}}
+ curves.forEach(k=>{c.strokeStyle=k.c;c.lineWidth=k.w||2.2;c.setLineDash(k.d?[6,5]:[]);c.beginPath();let on=false;
+  for(let px=0;px<=W;px++){const x=v.xmin+px/sc,y=k.f(x);if(!isFinite(y)||Math.abs(y)>1e3){on=false;continue}on?c.lineTo(px,Y(y)):c.moveTo(px,Y(y));on=true}c.stroke()});
+ c.setLineDash([]);(v.segs||[]).forEach(s=>{c.strokeStyle=s.c;c.lineWidth=s.w||2;c.setLineDash(s.d?[4,4]:[]);c.beginPath();c.moveTo(X(s.x1),Y(s.y1));c.lineTo(X(s.x2),Y(s.y2));c.stroke()});
+ c.setLineDash([]);(v.pts||[]).forEach(p=>{if(!isFinite(p[0])||!isFinite(p[1]))return;c.fillStyle=p.c||'#1e1b4b';c.beginPath();c.arc(X(p[0]),Y(p[1]),5,0,7);c.fill();c.fillStyle='#0f172a';c.fillText(p.l||'',X(p[0])+7,Y(p[1])-7)})}
+
+/* auto-zoom: bounding box of everything that matters (curves over an x-interval, plus points); always includes the axes */
+function fit(items,pts=[]){let x0=0,x1=0,y0=0,y1=0;
+ items.forEach(([f,a,b])=>{x0=Math.min(x0,a);x1=Math.max(x1,b);for(let i=0;i<=240;i++){const x=a+(b-a)*i/240,y=f(x);if(isFinite(y)&&Math.abs(y)<1e3){y0=Math.min(y0,y);y1=Math.max(y1,y)}}});
+ pts.forEach(p=>{if(isFinite(p[0])&&isFinite(p[1])){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}});
+ const px=Math.max((x1-x0)*.12,.6),py=Math.max((y1-y0)*.12,.6);return{x0:x0-px,x1:x1+px,y0:y0-py,y1:y1+py}}
+/* ---------- interactive widgets ---------- */
+const R=(id,l,min,max,step,val)=>`<label class="block text-sm">${l} <b id="${id}V">${val}</b><input id="${id}" class="ctl w-full" type="range" min="${min}" max="${max}" step="${step}" value="${val}"></label>`;
+const SEL=(id,l,o)=>`<label class="block text-sm">${l}<select id="${id}" class="ctl ml-2 border border-slate-300 rounded px-2 py-1">${o.map((t,i)=>`<option value="${i}">${t}</option>`).join('')}</select></label>`;
+const CK=(id,l,chk)=>`<label class="flex items-center gap-2 text-sm"><input id="${id}" class="ctl" type="checkbox" ${chk?'checked':''}> ${l}</label>`;
+const val=id=>{const x=+$('#'+id).value;const o=$('#'+id+'V');if(o)o.textContent=x;return x};
+const on=id=>$('#'+id).checked;
+const out=(w,h)=>{const e=$('#ro-'+w);e.innerHTML=h;ty(e);const c=cvs(w);if(c){c.setAttribute('role','img');c.setAttribute('aria-label','Graph. '+h.replace(/<[^>]+>/g,' ').replace(/\$/g,''))}};
+const cvs=w=>$('#cv-'+w);
+
+
+/* ---------- radians: shared drawing and helpers ---------- */
+const PI=Math.PI,gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const fp=(n,m)=>{const g=gcd(n,m);n/=g;m/=g;const c=n===1?'':n;return m===1?`${c}\\pi`:(n===1?`\\frac{\\pi}{${m}}`:`\\frac{${n}\\pi}{${m}}`)};
+const rpi=d=>{const g=gcd(d,180);return d===0?'0':fp(d/g,180/g)};
+const fT=(n,m)=>{const g=gcd(n,m);n/=g;m/=g;if(n===0)return '0';const c=n===1?'':n;return m===1?c+'π':(n===1?'π/'+m:n+'π/'+m)},pT=d=>fT(d,180);
+function sector(cv,o){const dpr=window.devicePixelRatio||1,sqr=/\b(sq|drag)\b/.test(cv.className||''),W=cv.clientWidth||600,H=Math.round(W*(sqr?1:2/3));cv.style.height=H+'px';cv.width=W*dpr;cv.height=H*dpr;const c=cv.getContext('2d');c.scale(dpr,dpr);c.clearRect(0,0,W,H);
+ const dial=o.mode==='dial',def=o.mode==='def',cx=W/2,cy=def?H*.40:H/2,R=def?Math.min(H*.30,W*.14):(dial?Math.min(W,H)*.38:Math.min(W,H)*.40*Math.min(1,o.r/(o.rmax||10)));
+ const X=a=>cx+R*Math.cos(a),Y=a=>cy-R*Math.sin(a),A=dial?(o.ang===null||o.ang===undefined?null:o.ang):o.th;c.font='13px system-ui';c.lineJoin='round';
+ c.strokeStyle='#e2e8f0';c.lineWidth=1;c.beginPath();c.moveTo(cx-R-14,cy);c.lineTo(cx+R+14,cy);c.moveTo(cx,cy-R-14);c.lineTo(cx,cy+R+14);c.stroke();
+ c.strokeStyle='#cbd5e1';c.lineWidth=1.5;c.beginPath();c.arc(cx,cy,R,0,7);c.stroke();
+ if(dial){for(let k=0;k<24;k++){const a=k*PI/12,l=k%2?5:10;c.strokeStyle='#94a3b8';c.beginPath();c.moveTo(cx+(R-l)*Math.cos(a),cy-(R-l)*Math.sin(a));c.lineTo(cx+(R+l)*Math.cos(a),cy-(R+l)*Math.sin(a));c.stroke()}
+  c.fillStyle='#64748b';[['0',0],['π/2',90],['π',180],['3π/2',270]].forEach(([t,dg])=>{const a=dg*PI/180;c.fillText(t,cx+(R+26)*Math.cos(a)-10,cy-(R+26)*Math.sin(a)+4)})}
+ if(A!==null&&A!==undefined&&(dial||A>0)){c.fillStyle=o.mode==='segment'?'rgba(67,56,202,.10)':'rgba(67,56,202,.20)';c.beginPath();c.moveTo(cx,cy);c.arc(cx,cy,R,0,-A,true);c.closePath();c.fill();
+  if(o.mode==='segment'){c.fillStyle='rgba(234,88,12,.40)';c.beginPath();c.moveTo(X(0),Y(0));c.arc(cx,cy,R,0,-A,true);c.closePath();c.fill();c.fillStyle='rgba(100,116,139,.30)';c.beginPath();c.moveTo(cx,cy);c.lineTo(X(0),Y(0));c.lineTo(X(A),Y(A));c.closePath();c.fill()}
+  c.strokeStyle='#4338ca';c.lineWidth=2;c.beginPath();c.moveTo(cx,cy);c.lineTo(X(0),Y(0));c.moveTo(cx,cy);c.lineTo(X(A),Y(A));c.stroke();
+  if(!dial){c.strokeStyle='#ea580c';c.lineWidth=4;c.beginPath();c.arc(cx,cy,R,0,-A,true);c.stroke()}
+  if(o.mode==='segment'){c.strokeStyle='#ea580c';c.lineWidth=2;c.beginPath();c.moveTo(X(0),Y(0));c.lineTo(X(A),Y(A));c.stroke()}
+  const ar=Math.max(16,R*.22);c.strokeStyle='#64748b';c.lineWidth=1.5;c.beginPath();c.arc(cx,cy,ar,0,-A,true);c.stroke();
+  const tl=o.tl===undefined?'θ':o.tl;if(tl){c.fillStyle='#0f172a';c.fillText(tl,cx+(ar+14)*Math.cos(A/2)-8,cy-(ar+14)*Math.sin(A/2)+4)}
+  if(dial){c.fillStyle='#ea580c';c.beginPath();c.arc(X(A),Y(A),6,0,7);c.fill()}}
+ if(dial&&o.tgt!==null&&o.tgt!==undefined){c.strokeStyle='#059669';c.setLineDash([6,4]);c.lineWidth=2.5;c.beginPath();c.moveTo(cx,cy);c.lineTo(X(o.tgt),Y(o.tgt));c.stroke();c.setLineDash([]);c.fillStyle='#059669';c.beginPath();c.arc(X(o.tgt),Y(o.tgt),6,0,7);c.fill()}
+ if(o.rl){c.fillStyle='#0f172a';c.fillText(o.rl,cx+R/2-12,cy+17)}
+ if(o.al&&A>0){c.fillStyle='#c2410c';c.fillText(o.al,cx+(R+8)*Math.cos(A/2),cy-(R+8)*Math.sin(A/2))}
+ if(def){const L=A*R,x0=cx-L/2,y0=H*.84,h=22;c.fillStyle='#0f172a';c.fillText('The arc, straightened out. Each block is one radius long:',8,y0-12);
+  for(let k=0;k<Math.ceil(A-1e-9);k++){const len=Math.min(R,L-k*R);c.fillStyle=k%2?'#fb923c':'#f97316';c.fillRect(x0+k*R,y0,len,h);c.strokeStyle='#fff';c.strokeRect(x0+k*R,y0,len,h);c.fillStyle='#fff';if(len>R*.5)c.fillText(len<R-1?'part':'1 r',x0+k*R+len/2-10,y0+15)}}}
+const sq=cv=>{if(cv)cv.className+=' sq'};
+
+const W={
+def:{ctl:R('dt','Angle (degrees):',15,360,15,60)+'<p class="text-sm text-slate-600">The slider is in degrees so you can see how the two units match up.</p>',
+ draw(){const d=val('dt'),th=d*PI/180;sector(cvs('def'),{mode:'def',r:1,th,tl:pT(d)});
+  out('def',`Angle: <b>${d}°</b>, which is <b>$${rpi(d)}$ radians</b> (about ${N(th)}).<br>The orange arc is $${rpi(d)}\\approx${N(th)}$ radius-lengths long. In the bar underneath, each block is one radius, so the arc fits ${N(th)} of them.<br>That is what "$${rpi(d)}$ radians" means: the arc is $${rpi(d)}$ times as long as the radius. A full turn ($360°$) is $2\\pi\\approx6.28$ radius-lengths.`)}},
+conv:{ctl:R('cd','Angle (degrees):',0,360,15,150)+'<p class="text-sm text-slate-600">Learn the key ones: 30° is $\\frac{\\pi}{6}$, 45° is $\\frac{\\pi}{4}$, 60° is $\\frac{\\pi}{3}$, 90° is $\\frac{\\pi}{2}$, 180° is $\\pi$.</p>',
+ draw(){const d=val('cd'),th=d*PI/180;sector(cvs('conv'),{mode:'plain',r:7,rmax:10,th,tl:d===0?'':pT(d)});
+  out('conv',d===0?'At $0^\\circ$ there is no angle at all, so it is $0$ radians.':`<b>Degrees to radians:</b> multiply by $\\frac{\\pi}{180}$.<br>$${d}^\\circ\\times\\frac{\\pi}{180}=\\frac{${d}\\pi}{180}=${rpi(d)}$ radians (about ${N(th)}).<br><b>Back again:</b> $${rpi(d)}\\times\\frac{180}{\\pi}=${d}^\\circ$. Check: radians are the small numbers, degrees are the big ones.`)}},
+arc:{ctl:R('ar','Radius r =',1,10,1,5)+R('ad','Angle (degrees) =',15,360,15,60)+'<p class="text-sm text-slate-600">You are used to degrees from GCSE, so the slider is in degrees. The diagram label shows the same angle in radians.</p>',
+ draw(){const r=val('ar'),d=val('ad'),th=d*PI/180,ex=fp(r*d,180);sector(cvs('arc'),{mode:'arc',r,rmax:10,th,rl:`r = ${r}`,al:`s = ${fT(r*d,180)}`,tl:pT(d)});
+  out('arc',`<b>GCSE way</b> (angle in degrees): $s=\\frac{${d}}{360}\\times2\\pi\\times${r}=${ex}$.<br><b>Radians way:</b> the angle is $\\theta=${rpi(d)}$ radians, so $s=r\\theta=${r}\\times${rpi(d)}=${ex}$ (about ${N(r*th)}).<br>Same answer, but the radians way is one short multiplication.<br><b>Perimeter of the sector:</b> $2r+r\\theta=${2*r}+${ex}$. That is the arc <i>and</i> the two straight edges.`)}},
+sec:{ctl:R('sr','Radius r =',1,10,1,5)+R('sa','Angle (degrees) =',15,360,15,60)+'<p class="text-sm text-slate-600">Watch the area when you double the radius. It is squared, so it quadruples.</p>',
+ draw(){const r=val('sr'),d=val('sa'),th=d*PI/180,ex=fp(r*r*d,360);sector(cvs('sec'),{mode:'sector',r,rmax:10,th,rl:`r = ${r}`,tl:pT(d)});
+  out('sec',`<b>GCSE way</b> (angle in degrees): $A=\\frac{${d}}{360}\\times\\pi\\times${r}^2=${ex}$.<br><b>Radians way:</b> $\\theta=${rpi(d)}$ radians, so $A=\\frac12r^2\\theta=\\frac12\\times${r*r}\\times${rpi(d)}=${ex}$ (about ${N(.5*r*r*th)}).<br>Same answer again. The radians formula is shorter because the $\\pi$ is already inside the angle.`)}},
+seg:{ctl:R('gsr','Radius r =',1,10,1,6)+R('gsa','Angle (degrees) =',15,180,15,90)+'<p class="text-sm text-slate-600">Start at 90°: the triangle is just half of $r\\times r$, like in GCSE foundation. Then try other angles.</p>',
+ draw(){const r=val('gsr'),d=val('gsa'),th=d*PI/180,sec=PI*r*r*d/360,tri=.5*r*r*Math.sin(th);sector(cvs('seg'),{mode:'segment',r,rmax:10,th,rl:`r = ${r}`,tl:pT(d)});
+  out('seg',`<b>GCSE way:</b> sector $=\\frac{${d}}{360}\\times\\pi\\times${r}^2=${N(sec)}$. Triangle $=\\frac12r^2\\sin${d}^\\circ=${N(tri)}$.${d===90?' (At 90° this is just $\\frac12\\times'+r+'\\times'+r+'$.)':''}<br><span style="color:#ea580c"><b>Orange segment</b></span> $=${N(sec)}-${N(tri)}=${N(sec-tri)}$.<br><b>Radians way:</b> $\\frac12r^2(\\theta-\\sin\\theta)$ with $\\theta=${rpi(d)}\\approx${N(th)}$ gives $\\frac12\\times${r*r}\\times(${N(th)}-${N(Math.sin(th))})=${N(.5*r*r*(th-Math.sin(th)))}$. Same answer.<br>The segment is always smaller than the sector.`)}}};
+const wb=(id,tt)=>`<div data-wid="${id}" class="grid md:grid-cols-2 gap-4 mt-4"><div class="ui space-y-3">${tt?`<p class="text-sm font-semibold text-indigo-900">Try it: <span class="font-normal text-slate-700">${tt}</span></p>`:''}${PRED[id]?predHTML(id):''}<div class="pctl space-y-3">${W[id].ctl}</div></div><div><canvas id="cv-${id}"></canvas><div id="ro-${id}" aria-live="polite" class="ui text-sm mt-3 leading-relaxed bg-slate-50 border border-slate-200 rounded p-3"></div></div></div>`;
+
+/* ---- predict, then reveal ---- */
+const PD={def:{dt:60},arc:{ar:5,ad:60},sec:{sr:5,sa:60}};
+const PRED={
+def:()=>{const d=pick([30,45,60,90,120,180,270]),v=d*PI/180;return{txt:`The angle is $${d}^\\circ$. About how many radius-lengths long will the arc be?`,opts:[`${N(v)} radius-lengths`,`${d} radius-lengths`,`${N(d/360)} radius-lengths`,`${N(2*PI)} radius-lengths`,`${N(d/57.3*2)} radius-lengths`],set:{dt:d},why:`One radian is $180\\div\\pi\\approx57.3^\\circ$ (because $\\pi$ radians is $180^\\circ$), and one radius-length of arc makes that angle. So $${d}^\\circ$ is about $${d}\\div57.3=${N(v)}$ radius-lengths.`}},
+arc:()=>{const r=pick([3,4,6,8]),d=pick([30,45,60,90,120,150,180]);return{txt:`The radius is $r=${r}$ and the angle is $${d}^\\circ$. What will the arc length be?`,opts:['$'+fp(r*d,180)+'$','$'+(r*d)+'$','$'+rpi(d)+'$','$'+fp(r*r*d,360)+'$','$'+fp(r*d,90)+'$'],set:{ar:r,ad:d},why:`Convert the angle first: $${d}^\\circ=${rpi(d)}$ radians. Then $s=r\\theta=${r}\\times${rpi(d)}=${fp(r*d,180)}$. Putting the degrees straight in would give $${r*d}$, which is far too big.`}},
+sec:()=>{const r=pick([2,4,6,8]),d=pick([30,60,90,120,180]);return{txt:`The radius is $r=${r}$ and the angle is $${d}^\\circ$. What will the area of the sector be?`,opts:['$'+fp(r*r*d,360)+'$','$'+fp(r*r*d,180)+'$','$'+fp(r*d,180)+'$','$'+(.5*r*r*d)+'$','$'+fp(r*r*d,720)+'$'],set:{sr:r,sa:d},why:`$\\theta=${rpi(d)}$ radians, so $A=\\frac12r^2\\theta=\\frac12\\times${r*r}\\times${rpi(d)}=${fp(r*r*d,360)}$. Without the $\\frac12$ you would get $${fp(r*r*d,180)}$.`}}};
+const predOpts=o=>{const seen=new Set([String(o[0])]),r=[{p:o[0],ok:true}];o.slice(1).forEach(a=>{const k=String(a);if(!seen.has(k)){seen.add(k);r.push({p:a,ok:false})}});return shuffle(r.slice(0,4))};
+const predHTML=id=>`<div class="pred rounded border border-indigo-200 bg-indigo-50 p-3 text-sm" data-pred="${id}"><div class="pbody"></div></div>`;
+function setCtl(o){Object.entries(o).forEach(([k,v])=>{const e=document.getElementById(k);if(e.type==='checkbox')e.checked=v;else e.value=v;e.dispatchEvent(new Event('input'))})}
+function initPred(card){const id=card.dataset.pred,body=card.querySelector('.pbody'),ctl=card.closest('[data-wid]').querySelector('.pctl');let q=null,opts=[],ch=null,unlocked=false,shown=false;
+ const lock=f=>{ctl.querySelectorAll('.ctl').forEach(c=>c.disabled=f);ctl.classList.toggle('opacity-50',f)};
+ function ask(){q=PRED[id]();opts=predOpts(q.opts);ch=null;shown=false;setCtl(PD[id]);if(!unlocked)lock(true);
+  body.innerHTML=`<p class="font-semibold text-indigo-950 mb-1">Predict first</p><p>${q.txt}</p><div class="space-y-1 my-2" role="radiogroup" aria-label="Your prediction">${opts.map((o,i)=>`<button type="button" class="popt w-full text-left border-2 border-slate-200 bg-white rounded px-3 py-1.5" role="radio" aria-checked="false" data-i="${i}">${o.p}</button>`).join('')}</div><div class="pf" aria-live="polite"></div><div class="flex flex-wrap gap-2 mt-2"><button type="button" class="pgo rounded bg-indigo-900 text-white px-3 py-1.5 opacity-50" disabled>Show me on the diagram</button>${unlocked?'':'<button type="button" class="pskip rounded border border-slate-300 bg-white px-3 py-1.5">Skip: explore freely</button>'}</div>`;ty(body);
+  const go=body.querySelector('.pgo');
+  body.querySelectorAll('.popt').forEach(b=>b.onclick=()=>{if(shown)return;ch=+b.dataset.i;body.querySelectorAll('.popt').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-checked','false')});b.classList.add('sel');b.setAttribute('aria-checked','true');go.disabled=false;go.classList.remove('opacity-50')});
+  go.onclick=()=>{if(shown){ask();return}shown=true;const ok=opts[ch].ok;setCtl(q.set);unlocked=true;lock(false);
+   body.querySelectorAll('.popt').forEach((x,i)=>{if(opts[i].ok)x.classList.add('ok');else if(i===ch)x.classList.add('bad')});
+   body.querySelector('.pf').innerHTML=`<p class="mt-1 ${ok?'text-emerald-800':'text-red-800'}"><b>${ok?'Correct.':'Not quite.'}</b> The answer is <b>${opts.find(o=>o.ok).p}</b>. ${q.why} Now look at the diagram and the working under it.</p>`;ty(body.querySelector('.pf'));
+   go.textContent='Try another prediction';const sk=body.querySelector('.pskip');if(sk)sk.remove();
+   S.pr=S.pr||{n:0,ok:0};S.pr.n++;if(ok)S.pr.ok++;save();report()};
+  const sk=body.querySelector('.pskip');if(sk)sk.onclick=()=>{unlocked=true;lock(false);body.innerHTML='<button type="button" class="pagain rounded border border-indigo-300 bg-white px-3 py-1.5">Test myself with a prediction</button>';body.querySelector('.pagain').onclick=ask}}
+ ask()}
+
+/* ---------- theory cards ---------- */
+const TH=[
+['def','What is a radian?',String.raw`<p>A <b>radian</b> is a different way to measure an angle. Degrees cut a full turn into 360 equal pieces. Radians use the circle itself as the ruler.</p>
+<p>Take the <b>radius</b> of a circle and lay it along the edge (the <b>arc</b>). The angle that arc makes at the centre is <b>1 radian</b>. So the angle in radians simply tells you <i>how many radius-lengths fit along the arc</i>.</p>
+<ul><li>The edge of a whole circle is $2\pi r$ long. That is $2\pi$ radius-lengths, so a full turn is $2\pi$ radians.</li><li>Half a turn is $\pi$ radians. So $\pi$ radians $=180^\circ$. This is the one fact to remember.</li><li>One radian is about $57.3^\circ$. Where does that come from? $\pi$ radians is $180^\circ$, so one radian is $180\div\pi=57.29...^\circ$. It is a little less than $60^\circ$.</li></ul>
+<p>Radians are usually written as a decimal (such as 1.2) or as a multiple of $\pi$ (such as $\frac{\pi}{3}$). You do not need to write a unit.</p>`,'Slide the angle. The orange arc is measured in radius-lengths, so count how many blocks fit underneath.'],
+['conv','Converting between degrees and radians',String.raw`<p>Because $\pi$ radians $=180^\circ$, one rule does all the work.</p>
+<ul><li><b>Degrees to radians:</b> multiply by $\frac{\pi}{180}$.</li><li><b>Radians to degrees:</b> multiply by $\frac{180}{\pi}$.</li></ul>
+<p>A quick check: degrees are "big numbers" (a full turn is 360) and radians are "small numbers" (a full turn is about 6.28). So going <i>to</i> radians should make the number smaller.</p>
+<p>Learn these: $30^\circ=\frac{\pi}{6}$, $45^\circ=\frac{\pi}{4}$, $60^\circ=\frac{\pi}{3}$, $90^\circ=\frac{\pi}{2}$, $180^\circ=\pi$, $360^\circ=2\pi$. Every other angle is a multiple of one of these.</p>`,'Slide the angle in degrees and watch the working turn it into radians.'],
+['arc','Arc length and the perimeter of a sector',String.raw`<p><b>You already know this from GCSE.</b> An arc is a fraction of the circle's edge. The fraction is the angle divided by a full turn, and the whole edge is the circumference $2\pi r$:</p>
+$$\text{arc length}=\frac{\theta^\circ}{360}\times2\pi r\qquad(\theta\text{ in degrees})$$
+<p><b>Now let us turn it into a radians formula.</b> Follow the four steps.</p>
+<ol class="list-decimal ml-5 space-y-1 mt-1"><li>A full turn is $360^\circ$, and it is also $2\pi$ radians. So an angle of $\theta$ radians is the fraction $\frac{\theta}{2\pi}$ of a full turn.</li><li>That fraction replaces $\frac{\theta^\circ}{360}$ in the GCSE formula: $s=\frac{\theta}{2\pi}\times2\pi r$.</li><li>The $2\pi$ on the top cancels the $2\pi$ on the bottom.</li><li>What is left is wonderfully short:</li></ol>
+$$s=r\theta$$
+<p>$\theta$ <b>must be in radians</b>. The <b>perimeter of a sector</b> is the arc plus the two straight edges: $P=2r+r\theta$.</p>`,'Change the radius and the angle (in degrees). Compare the GCSE working with the radians working: they always agree.'],
+['sec','Area of a sector',String.raw`<p><b>Again, you know this from GCSE.</b> A sector is a fraction of the whole circle's area $\pi r^2$, and the fraction is the angle over a full turn:</p>
+$$\text{sector area}=\frac{\theta^\circ}{360}\times\pi r^2\qquad(\theta\text{ in degrees})$$
+<p>Swap in radians exactly as before. The fraction $\frac{\theta^\circ}{360}$ becomes $\frac{\theta}{2\pi}$:</p>
+<p>$\frac{\theta}{2\pi}\times\pi r^2=\frac{\theta\pi r^2}{2\pi}=\frac12r^2\theta$ (the $\pi$ cancels).</p>
+$$A=\tfrac12r^2\theta$$
+<p>Again $\theta$ must be in radians. Do not forget the $\frac12$. The radius is squared, so doubling the radius makes the area <b>four</b> times bigger.</p>`,'Change the radius and the angle. What happens to the area when you double the radius?'],
+['seg','Segments',String.raw`<p><b>Start with GCSE.</b> A segment is the piece cut off by a straight line (a chord). You find its area by taking the sector and cutting away the triangle: <b>segment = sector $-$ triangle</b>.</p>
+<p><b>Foundation case: a quarter circle ($90^\circ$).</b> The triangle has a right angle between two radii, so its area is just $\frac12\times r\times r$. The sector is a quarter of a circle: $\frac14\pi r^2$. So segment $=\frac14\pi r^2-\frac12r^2$.</p>
+<p><b>Now any angle.</b> The triangle is no longer right-angled, so use the GCSE higher formula for a triangle with two sides and the angle between them, $\frac12ab\sin C$. Both sides are $r$ and the angle is $\theta$, so the triangle is $\frac12r^2\sin\theta$.</p>
+<p><b>Now in radians.</b> The sector is $\frac12r^2\theta$ (from the last card). So:</p>
+$$\text{segment}=\tfrac12r^2\theta-\tfrac12r^2\sin\theta=\tfrac12r^2(\theta-\sin\theta)$$
+<p><b>Check it</b> with the quarter circle: $\theta=\frac{\pi}{2}$ and $\sin\frac{\pi}{2}=1$, so $\frac12r^2(\frac{\pi}{2}-1)=\frac14\pi r^2-\frac12r^2$. That is the GCSE answer. Keep your calculator in <b>radian mode</b> when you work out $\sin\theta$.</p>`,'Set the angle to 90° first: the triangle is half of r times r, as in GCSE foundation. Then try other angles.'],
+['fb','The formula booklet: what you are given and what you must learn',String.raw`<p>In the exam you get Edexcel's formulae booklet. For A Level Mathematics (9MA0) the booklet contains <b>none</b> of the formulas for this topic. You have to learn them.</p>
+<div class="grid sm:grid-cols-2 gap-3 mt-3">
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>NOT in the booklet: learn these</b><ul>
+<li>$180^\circ=\pi$ radians (how to convert)</li>
+<li>Arc length $s=r\theta$</li>
+<li>Sector area $A=\frac12r^2\theta$</li>
+<li>Segment area $=\frac12r^2(\theta-\sin\theta)$, or sector $-$ triangle</li>
+<li>Triangle area $\frac12ab\sin C$</li>
+<li>Circumference $2\pi r$ and circle area $\pi r^2$ (from GCSE)</li>
+<li>The GCSE degree versions, $\frac{\theta^\circ}{360}\times2\pi r$ and $\frac{\theta^\circ}{360}\times\pi r^2$ (good for checking)</li>
+<li>The cosine rule $a^2=b^2+c^2-2bc\cos A$, which you need for chord lengths</li>
+<li>Exact values of sin, cos and tan for $\frac{\pi}{6}$, $\frac{\pi}{4}$ and $\frac{\pi}{3}$</li></ul></div>
+<div class="border border-emerald-200 bg-emerald-50 rounded p-3"><b>In the booklet (but not needed for this topic)</b><ul>
+<li>The small angle approximations $\sin\theta\approx\theta$, $\cos\theta\approx1-\frac{\theta^2}{2}$, $\tan\theta\approx\theta$, with $\theta$ in radians. This is the <i>next</i> topic.</li>
+<li>The addition formulae for $\sin(A\pm B)$ and $\cos(A\pm B)$.</li></ul></div></div>
+<p class="mt-3 text-sm">The booklet does show a sector area and an arc length, but only in the <i>Further</i> Mathematics pages, written as calculus in polar coordinates. That is not for 9MA0. Source: Pearson Edexcel Mathematical formulae and statistical tables, A Level Mathematics, Pure Mathematics section (Issue 1, 2017). Check your own copy before the exam.</p>`,''],
+['err','Common mistakes (and how to avoid them)',String.raw`<p>These mistakes cost the most marks. Read each one, then test yourself in the <b>Spot the mistake</b> tab.</p>
+<div class="space-y-3 mt-3">
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>1. Using degrees in $s=r\theta$ or $A=\frac12r^2\theta$.</b><br>Both formulas only work when $\theta$ is in <b>radians</b>. If you are given degrees, convert first.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>2. Calculator in the wrong mode.</b><br>If you work out $\sin1.2$ in degree mode you get 0.0209 instead of 0.932. Check for the little "R" or "RAD" on the screen before any trig in radians.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>3. Forgetting the $\frac12$ in the area.</b><br>$A=\frac12r^2\theta$, not $r^2\theta$. Compare with $\frac{\theta}{2\pi}\times\pi r^2$ if you are unsure.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>4. Using only the arc as the perimeter.</b><br>The perimeter of a sector goes all the way round: the arc <i>and</i> both radii. $P=2r+r\theta$.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>5. Converting the wrong way.</b><br>Degrees to radians: multiply by $\frac{\pi}{180}$. Radians to degrees: multiply by $\frac{180}{\pi}$. Check: radians should be the smaller numbers.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>6. Mixing up segment and sector.</b><br>The segment is the sector <i>minus the triangle</i>. The triangle is $\frac12r^2\sin\theta$, not $\frac12r^2\theta$.</div>
+<div class="border border-red-200 bg-red-50 rounded p-3"><b>7. Giving a decimal when the question wants an exact answer.</b><br>If the angle involves $\pi$, or the question says "exact", leave $\pi$ in your answer: write $\frac{10\pi}{3}$, not 10.47.</div>
+</div>
+<button onclick="goTab('spot')" class="ui mt-4 rounded-md bg-indigo-900 text-white px-4 py-2 text-sm">Go to Spot the mistake</button>`,'']];
+
+const TEX={
+def:[{q:String.raw`<b>Worked example.</b> A circle has radius 4 cm. An arc of the circle is 10 cm long. Find the angle at the centre.`,s:[
+ ['Step 1: remember what a radian counts',String.raw`The angle in radians is the number of radius-lengths that fit along the arc. So we need to find how many 4 cm lengths fit into 10 cm.`,v=>sector(v,{mode:'plain',r:4,rmax:10,th:2.5,rl:'4 cm',tl:'?',al:'arc = 10 cm'})],
+ ['Step 2: divide',String.raw`$10\div4=2.5$. So the arc is 2.5 radius-lengths long.`],
+ ['Step 3: write the answer',String.raw`The angle is <b>2.5 radians</b>.`],
+ ['Step 4: check it makes sense',String.raw`Where does 57.3 come from? We know $\pi$ radians $=180^\circ$. So <b>one</b> radian is $180^\circ\div\pi=57.29...^\circ$, which is about $57.3^\circ$. That makes 2.5 radians about $2.5\times57.3\approx143^\circ$. That is a bit more than a right angle ($90^\circ$) and less than a straight line ($180^\circ$), which matches the picture.`]]}],
+conv:[
+ {q:String.raw`<b>Worked example 1.</b> Write $150^\circ$ in radians, in terms of $\pi$.`,s:[
+ ['Step 1: choose the right rule',String.raw`Going from degrees to radians, so multiply by $\frac{\pi}{180}$.`],
+ ['Step 2: multiply',String.raw`$150\times\frac{\pi}{180}=\frac{150\pi}{180}$.`],
+ ['Step 3: simplify the fraction',String.raw`Divide top and bottom by 30: $\frac{150}{180}=\frac56$. So $150^\circ=\frac{5\pi}{6}$ radians. Check: $\frac{5\pi}{6}$ is a bit less than $\pi$, and $150^\circ$ is a bit less than $180^\circ$. ✓`,v=>sector(v,{mode:'plain',r:7,rmax:10,th:5*PI/6,tl:'5π/6'})]]},
+ {q:String.raw`<b>Worked example 2.</b> Write $\frac{7\pi}{12}$ radians in degrees.`,s:[
+ ['Step 1: choose the right rule',String.raw`Going from radians to degrees, so multiply by $\frac{180}{\pi}$.`],
+ ['Step 2: multiply and cancel',String.raw`$\frac{7\pi}{12}\times\frac{180}{\pi}$. The $\pi$ cancels, leaving $\frac{7\times180}{12}$.`],
+ ['Step 3: finish',String.raw`$180\div12=15$, so $7\times15=105$. The answer is <b>$105^\circ$</b>.`]]},
+ {q:String.raw`<b>Worked example 3.</b> Write 2.4 radians in degrees, to 1 decimal place.`,s:[
+ ['Step 1: use the rule',String.raw`Radians to degrees: multiply by $\frac{180}{\pi}$. There is no $\pi$ in the angle to cancel, so use your calculator.`],
+ ['Step 2: calculate',String.raw`$2.4\times\frac{180}{\pi}=137.5099...$, so <b>$137.5^\circ$</b> (1 d.p.). Check: one radian is $180\div\pi\approx57.3^\circ$, and $2.4\times57.3\approx137.5$. ✓`]]}],
+arc:[
+ {q:String.raw`<b>Worked example 1.</b> A sector has radius 7 cm and angle 0.8 radians. Find the arc length and the perimeter.`,s:[
+ ['Step 1: the diagram',String.raw`Here is the sector. The angle is already in radians, so we can use $s=r\theta$ straight away.`,v=>sector(v,{mode:'arc',r:7,rmax:10,th:.8,rl:'7 cm',tl:'0.8',al:'s = ?'})],
+ ['Step 2: arc length',String.raw`$s=r\theta=7\times0.8=5.6$ cm.`],
+ ['Step 3: perimeter',String.raw`The perimeter goes round the whole outside: the arc and the two straight edges (each 7 cm). $P=2r+s=14+5.6=19.6$ cm.`]]},
+ {q:String.raw`<b>Worked example 2.</b> A sector has radius 6 cm and angle $150^\circ$. Find the exact arc length, first the GCSE way and then the radians way.`,s:[
+ ['Step 1: the GCSE way',String.raw`$s=\frac{\theta^\circ}{360}\times2\pi r=\frac{150}{360}\times2\pi\times6=\frac{5}{12}\times12\pi=5\pi$ cm.`],
+ ['Step 2: the radians way, convert first',String.raw`$s=r\theta$ needs radians. $150^\circ=\frac{5\pi}{6}$ radians (from the conversion card).`],
+ ['Step 3: the radians way, use the formula',String.raw`$s=6\times\frac{5\pi}{6}$. The 6 cancels with the 6 on the bottom, so $s=5\pi$ cm.`,v=>sector(v,{mode:'arc',r:6,rmax:10,th:5*PI/6,rl:'6 cm',tl:'5π/6',al:'s = 5π'})],
+ ['Step 4: compare',String.raw`Both give $5\pi\approx15.7$ cm. The radians way is shorter, and it is the one the exam expects.`]]},
+ {q:String.raw`<b>Worked example 3.</b> An arc of length 12 cm is cut from a circle of radius 5 cm. Find the angle in radians.`,s:[
+ ['Step 1: write the formula',String.raw`$s=r\theta$, with $s=12$ and $r=5$: $12=5\theta$.`],
+ ['Step 2: rearrange',String.raw`Divide both sides by 5: $\theta=\frac{12}{5}=2.4$.`],
+ ['Step 3: answer',String.raw`The angle is <b>2.4 radians</b>. That agrees with the first card: 12 cm of arc is 2.4 lots of the 5 cm radius.`]]}],
+sec:[
+ {q:String.raw`<b>Worked example 1.</b> A sector has radius 6 cm and angle $\frac{\pi}{3}$. Find its area, first the GCSE way and then the radians way.`,s:[
+ ['Step 1: the GCSE way',String.raw`$\frac{\pi}{3}$ radians is $60^\circ$. $A=\frac{60}{360}\times\pi\times6^2=\frac16\times36\pi=6\pi$ cm$^2$.`],
+ ['Step 2: the radians way',String.raw`$A=\frac12r^2\theta=\frac12\times6^2\times\frac{\pi}{3}=18\times\frac{\pi}{3}=6\pi$ cm$^2$.`,v=>sector(v,{mode:'sector',r:6,rmax:10,th:PI/3,rl:'6 cm',tl:'π/3'})],
+ ['Step 3: compare',String.raw`Same answer, $6\pi\approx18.8$ cm$^2$.`]]},
+ {q:String.raw`<b>Worked example 2.</b> A sector has radius 8 cm and angle 1.5 radians. Find its area.`,s:[
+ ['Step 1: the diagram',String.raw`The angle is in radians, so use $A=\frac12r^2\theta$.`,v=>sector(v,{mode:'sector',r:8,rmax:10,th:1.5,rl:'8 cm',tl:'1.5'})],
+ ['Step 2: substitute and work out',String.raw`$A=\frac12\times8^2\times1.5=\frac12\times64\times1.5=32\times1.5=48$ cm$^2$.`]]},
+ {q:String.raw`<b>Worked example 3.</b> A sector with angle 1.5 radians has area 27 cm$^2$. Find the radius.`,s:[
+ ['Step 1: write the formula',String.raw`$A=\frac12r^2\theta$, so $27=\frac12r^2\times1.5=0.75r^2$.`],
+ ['Step 2: rearrange for $r^2$',String.raw`Divide by 0.75: $r^2=\frac{27}{0.75}=36$.`],
+ ['Step 3: square root',String.raw`$r=\sqrt{36}=6$ cm. The radius cannot be negative, so we only take the positive root.`]]}],
+seg:[
+ {q:String.raw`<b>Worked example 1 (GCSE foundation).</b> A quarter circle has radius 6 cm. A chord joins the ends of its arc. Find the exact area of the segment.`,s:[
+ ['Step 1: picture the parts',String.raw`The orange segment is the sector minus the grey triangle.`,v=>sector(v,{mode:'segment',r:10,rmax:10,th:PI/2,rl:'6 cm',tl:'90°'})],
+ ['Step 2: the sector',String.raw`A quarter of the circle: $\frac14\times\pi\times6^2=9\pi$ cm$^2$.`],
+ ['Step 3: the triangle',String.raw`It has a right angle between two sides of length 6, so the area is $\frac12\times6\times6=18$ cm$^2$.`],
+ ['Step 4: subtract',String.raw`Segment $=9\pi-18\approx10.27$ cm$^2$.`]]},
+ {q:String.raw`<b>Worked example 2.</b> Check the last answer with the radians formula $\frac12r^2(\theta-\sin\theta)$.`,s:[
+ ['Step 1: the angle in radians',String.raw`A quarter circle is $90^\circ=\frac{\pi}{2}$ radians, and $\sin\frac{\pi}{2}=1$.`],
+ ['Step 2: use the formula',String.raw`$\frac12\times6^2\times\left(\frac{\pi}{2}-1\right)=18\left(\frac{\pi}{2}-1\right)=9\pi-18$ cm$^2$.`],
+ ['Step 3: compare',String.raw`The same as the GCSE working. The formula is just "sector minus triangle" written in one line.`]]},
+ {q:String.raw`<b>Worked example 3.</b> A circle has centre $O$ and radius 10 cm. The chord $AB$ makes an angle of 0.8 radians at $O$. Find the area of the segment cut off by the chord.`,s:[
+ ['Step 1: picture the parts',String.raw`The orange segment is the sector minus the grey triangle. So we need the area of each piece.`,v=>sector(v,{mode:'segment',r:10,rmax:10,th:.8,rl:'10 cm',tl:'0.8'})],
+ ['Step 2: the sector',String.raw`$\frac12r^2\theta=\frac12\times100\times0.8=40$ cm$^2$.`],
+ ['Step 3: the triangle',String.raw`Two sides are $r=10$ with angle 0.8 between them, so the area is $\frac12\times10\times10\times\sin0.8=50\sin0.8$. In <b>radian mode</b>, $\sin0.8=0.7174$, so the triangle is 35.87 cm$^2$.`],
+ ['Step 4: subtract',String.raw`Segment $=40-35.87=4.13$ cm$^2$ (3 s.f.). Check: it is smaller than the sector (40), and a thin sliver, so a small area is right. ✓`]]}]};
+$('#cards').innerHTML=TH.map((t,i)=>`<details class="bg-white rounded-lg border border-slate-200" data-w="${t[0]}" ${i==0?'open':''}><summary class="ui flex items-center gap-3 p-4 font-semibold text-indigo-950"><span class="chev text-indigo-500">▶</span>${t[1]}</summary>
+<div class="px-5 pb-5 text-[15px] leading-relaxed"><div class="body">${t[2]}</div>
+${W[t[0]]?`<div class="mt-4 pt-4 border-t border-slate-200">${wb(t[0],t[3])}</div>`:''}${TEX[t[0]]?`<div class="mt-5 pt-4 border-t border-slate-200"><h3 class="ui font-semibold text-indigo-950 mb-3">Worked example${TEX[t[0]].length>1?'s':''}</h3>${TEX[t[0]].map((e,i)=>`<div class="mb-5" data-ex-host="${t[0]}-${i}"><div class="bg-slate-50 border border-slate-200 rounded p-3 mb-3">${e.q}</div><div class="stepper"></div></div>`).join('')}</div>`:''}</div></details>`).join('');
+$$('[data-ex-host]').forEach(h=>{const [w,i]=h.dataset.exHost.split('-');stepper(h.querySelector('.stepper'),TEX[w][+i].s)});
+function drawAll(root){root.querySelectorAll('[data-wid]').forEach(b=>{if(b.offsetParent!==null)W[b.dataset.wid].draw()})}
+$$('#cards [data-wid]').forEach(b=>{const w=b.dataset.wid;b.querySelectorAll('.ctl').forEach(e=>e.addEventListener('input',()=>W[w].draw()))});
+$$('#cards [data-pred]').forEach(initPred);
+$$('#cards details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)drawAll(d)}));
+
+/* ---------- worked examples ---------- */
+const EX=[
+{t:'Example 1 · Arc length, perimeter and area',m:5,q:String.raw`A sector of a circle has radius 6 cm and angle 1.2 radians.<br>(a) Find the arc length. [1 mark]<br>(b) Find the perimeter of the sector. [2 marks]<br>(c) Find the area of the sector. [2 marks]`,
+ s:[['Hint for (a)',String.raw`Picture the sector first. The angle is already in radians, so the arc length formula $s=r\theta$ can be used straight away. Here is the sector.`,v=>sector(v,{mode:'arc',r:6,rmax:10,th:1.2,rl:'6 cm',tl:'1.2',al:'arc = ?'})],
+ ['Working for (a)',String.raw`$s=r\theta=6\times1.2=7.2$ cm.`],
+ ['Hint for (b)',String.raw`The perimeter is the distance all the way round the edge of the slice. That is more than just the curved part.`],
+ ['Working for (b)',String.raw`The edge is the arc plus two straight edges, each as long as the radius. $P=2r+s=2\times6+7.2=12+7.2=19.2$ cm.`],
+ ['Hint for (c)',String.raw`Use the sector area formula $A=\frac12r^2\theta$. Square the radius before multiplying, and do not forget the half.`],
+ ['Working for (c)',String.raw`$A=\frac12\times6^2\times1.2=\frac12\times36\times1.2=18\times1.2=21.6$ cm$^2$.`]]},
+{t:'Example 2 · Degrees, radians and exact answers',m:5,q:String.raw`A sector has radius 4 cm and angle $150^\circ$.<br>(a) Write the angle in radians, in terms of $\pi$. [1 mark]<br>(b) Find the exact arc length. [2 marks]<br>(c) Find the exact area of the sector. [2 marks]`,
+ s:[['Hint for (a)',String.raw`Degrees to radians means multiplying by $\frac{\pi}{180}$. Then simplify the fraction by dividing top and bottom by a common factor.`],
+ ['Working for (a)',String.raw`$150\times\frac{\pi}{180}=\frac{150\pi}{180}=\frac{5\pi}{6}$ radians (dividing top and bottom by 30). Here is the sector.`,v=>sector(v,{mode:'sector',r:6,rmax:10,th:5*PI/6,rl:'4 cm',tl:'5π/6'})],
+ ['Hint for (b)',String.raw`Now the angle is in radians, so $s=r\theta$ works. "Exact" means leave $\pi$ in the answer, not a decimal.`],
+ ['Working for (b)',String.raw`$s=4\times\frac{5\pi}{6}=\frac{20\pi}{6}=\frac{10\pi}{3}$ cm. (As a check, that is about 10.5 cm.)`],
+ ['Hint for (c)',String.raw`Use $A=\frac12r^2\theta$ with the radians angle $\frac{5\pi}{6}$.`],
+ ['Working for (c)',String.raw`$A=\frac12\times4^2\times\frac{5\pi}{6}=8\times\frac{5\pi}{6}=\frac{40\pi}{6}=\frac{20\pi}{3}$ cm$^2$. (About 20.9 cm$^2$.)`]]},
+{t:'Example 3 · The area of a segment',m:5,q:String.raw`A circle has centre $O$ and radius 12 cm. The chord $AB$ makes an angle of 1.1 radians at $O$.<br>(a) Find the area of the sector $OAB$. [2 marks]<br>(b) Find the area of the triangle $OAB$. [2 marks]<br>(c) Find the area of the segment cut off by $AB$. [1 mark]`,
+ s:[['Hint for (a)',String.raw`Picture the shape. The segment is the orange piece. It is what is left when you take the triangle away from the sector, so first find the sector.`,v=>sector(v,{mode:'segment',r:10,rmax:10,th:1.1,rl:'12 cm',tl:'1.1'})],
+ ['Working for (a)',String.raw`$\frac12r^2\theta=\frac12\times12^2\times1.1=\frac12\times144\times1.1=79.2$ cm$^2$.`],
+ ['Hint for (b)',String.raw`The triangle has two sides of length 12 (the radii) with the angle 1.1 between them. Use $\frac12ab\sin C$. Make sure your calculator is in radian mode.`],
+ ['Working for (b)',String.raw`$\frac12\times12\times12\times\sin1.1=72\sin1.1=72\times0.8912=64.17$ cm$^2$.`],
+ ['Working for (c)',String.raw`Segment $=$ sector $-$ triangle $=79.2-64.17=15.03$ cm$^2$ (4 s.f.). It is smaller than the sector, as it should be. ✓`]]}];
+function stepper(host,steps){host.innerHTML=`<div class="steps space-y-2"></div><div class="ui flex gap-2 mt-3"><button class="next rounded-md bg-indigo-900 text-white px-4 py-2 text-sm">Show next step</button><button class="reset rounded-md border border-slate-300 px-4 py-2 text-sm">Start again</button></div>`;
+ let n=0;const box=host.querySelector('.steps'),btn=host.querySelector('.next');
+ btn.onclick=()=>{if(n>=steps.length)return;const st=steps[n++],h=st[0].startsWith('Hint'),el=document.createElement('div');
+  el.className='rounded border p-3 leading-relaxed '+(h?'bg-amber-50 border-amber-200':'bg-indigo-50 border-indigo-200');
+  el.innerHTML=`<div class="ui text-xs font-semibold ${h?'text-amber-800':'text-indigo-900'} mb-1">${st[0]}</div>${st[1]}`;
+  box.appendChild(el);if(st[2]){const cv=document.createElement('canvas');cv.className='mt-3';cv.setAttribute('role','img');cv.setAttribute('aria-label','Graph for this step: '+st[0]);el.appendChild(cv);ty(el);st[2](cv)}else ty(el);
+  if(n>=steps.length){btn.disabled=true;btn.classList.add('opacity-40')}};
+ host.querySelector('.reset').onclick=()=>{n=0;box.innerHTML='';btn.disabled=false;btn.classList.remove('opacity-40')}}
+$('#examples').insertAdjacentHTML('beforeend',EX.map((e,i)=>`<details class="bg-white rounded-lg border border-slate-200" data-ex="${i}"><summary class="ui flex items-center gap-3 p-4 font-semibold text-indigo-950"><span class="chev text-indigo-500">▶</span>${e.t}<span class="ml-auto text-xs font-normal text-slate-500">${e.m} marks</span></summary>
+<div class="px-5 pb-5"><div class="bg-slate-50 border border-slate-200 rounded p-3 mb-3 leading-relaxed">${e.q}</div><div class="stepper"></div></div></details>`).join(''));
+$$('#examples details').forEach(d=>stepper(d.querySelector('.stepper'),EX[+d.dataset.ex].s));
+
+/* ---------- question generators ---------- */
+const GEN={bronze:[],silver:[],gold:[],exam:[]};
+const D=(mode,r,th,x={})=>({mode,r,th,rmax:12,...x}),r2=n=>+(+n).toFixed(2),r4=n=>+(+n).toFixed(4),cl=(a,b)=>Math.abs(a-b)<.02;
+// ---- Fundamental ----
+GEN.bronze.push(()=>{const d=pick([30,45,60,90,120,135,150,180,210,240,270,300,330]),a=rpi(d),g=gcd(d,180);
+ return{tp:'conv',q:String.raw`Convert $${d}^\circ$ to radians. Give your answer in terms of $\pi$ (type it like 5pi/6).`,cv:d*PI/180,exact:true,at:a,
+ diag:u=>Math.abs(u[0]-d*180/PI)<.5?String.raw`You multiplied by $\frac{180}{\pi}$. To go from degrees to radians, multiply by $\frac{\pi}{180}$.`:Math.abs(u[0]-d)<.01?String.raw`The number has not changed. Multiply the degrees by $\frac{\pi}{180}$.`:null,
+ steps:[String.raw`Degrees to radians: multiply by $\frac{\pi}{180}$, because $180^\circ=\pi$ radians.`,String.raw`$${d}\times\frac{\pi}{180}=\frac{${d}\pi}{180}$.`,String.raw`Cancel the common factor ${g}: $\frac{${d}\pi}{180}=${a}$.`,String.raw`So $${d}^\circ=${a}$ radians.`]}});
+GEN.bronze.push(()=>{const [n,m]=pick([[1,6],[1,4],[1,3],[1,2],[2,3],[3,4],[5,6],[7,6],[5,4],[4,3],[3,2],[5,3],[7,4],[11,6]]),deg=n*180/m,t=fp(n,m);
+ return{tp:'conv',q:String.raw`Convert $${t}$ radians to degrees.`,ans:[deg],at:deg+'^\\circ',
+ diag:u=>Math.abs(u[0]-n*PI/m)<.02?String.raw`That is the angle in radians as a decimal. To get degrees, multiply by $\frac{180}{\pi}$.`:null,
+ steps:[String.raw`Radians to degrees: multiply by $\frac{180}{\pi}$.`,String.raw`$${t}\times\frac{180}{\pi}$. The $\pi$ on the top cancels the $\pi$ on the bottom.`,String.raw`That leaves $\frac{${n}\times180}{${m}}=${deg}$. So the angle is $${deg}^\circ$.`]}});
+GEN.bronze.push(()=>{const r=rnd(3,12),th=pick([.5,.8,1.2,1.5,2]),s=r2(r*th);
+ return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find the arc length, in cm.`,ans:[s],at:String(s),sd:D('arc',r,th,{rl:r+' cm',tl:String(th),al:'s = ?'}),
+ diag:u=>cl(u[0],.5*r*r*th)?String.raw`That is the formula for the <b>area</b> of a sector. Arc length is $s=r\theta$.`:cl(u[0],r+th)?String.raw`The arc length is found by <b>multiplying</b>: $s=r\theta$.`:null,
+ steps:[String.raw`The angle is in radians, so use $s=r\theta$.`,String.raw`$s=${r}\times${th}=${s}$ cm.`]}});
+GEN.bronze.push(()=>{const r=pick([4,6,8,10]),th=pick([.5,1,1.5,2]),a=r2(.5*r*r*th);
+ return{tp:'sec',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find the area of the sector, in cm$^2$.`,ans:[a],at:String(a),sd:D('sector',r,th,{rl:r+' cm',tl:String(th)}),
+ diag:u=>cl(u[0],r*r*th)?String.raw`You forgot the $\frac12$. The formula is $A=\frac12r^2\theta$.`:cl(u[0],r*th)?String.raw`That is the <b>arc length</b> $r\theta$. The area is $\frac12r^2\theta$.`:null,
+ steps:[String.raw`The angle is in radians, so use $A=\frac12r^2\theta$.`,String.raw`$A=\frac12\times${r}^2\times${th}=\frac12\times${r*r}\times${th}=${a}$ cm$^2$.`]}});
+GEN.bronze.push(()=>{if(Math.random()<.5){const O=[['radians','The formulas are built from the circle itself (the radius), which is exactly what radians measure.'],['degrees','With degrees you would need an extra factor of $\\frac{\\pi}{180}$ in each formula.'],['either radians or degrees','Only radians work. In degrees the formula gives a wrong answer unless you add extra factors.'],['revolutions (full turns)','Radians are what the formulas need. A revolution is the same as $2\\pi$ radians.']],ch=shuffle([0,1,2,3]);
+  return{tp:'conv',q:String.raw`The formulas $s=r\theta$ and $A=\frac12r^2\theta$ only work when $\theta$ is measured in:`,mc:ch.map(i=>O[i][0]),ci:ch.indexOf(0),mcwhy:ch.map(i=>i===0?null:O[i][1]),at:'radians',steps:[String.raw`Both formulas come from taking the fraction $\frac{\theta}{2\pi}$ of a full turn. That only comes out so simply when $\theta$ is in radians.`,String.raw`If you are given degrees, convert to radians first.`]}}
+ const O=[['$2\\pi$',null],['$\\pi$','That is only <b>half</b> a turn ($180^\\circ$).'],['$360$','That is the number of <i>degrees</i> in a full turn.'],['$1$','One radian is about $57.3^\\circ$, a small part of a turn.']],ch=shuffle([0,1,2,3]);
+ return{tp:'conv',q:String.raw`How many radians are there in one full turn?`,mc:ch.map(i=>O[i][0]),ci:ch.indexOf(0),mcwhy:ch.map(i=>O[i][1]),at:'$2\\pi$',steps:[String.raw`The edge of a full circle is $2\pi r$, which is $2\pi$ radius-lengths.`,String.raw`Each radius-length is 1 radian, so a full turn is $2\pi$ radians (about 6.28). Half a turn is $\pi$.`]}});
+GEN.bronze.push(()=>{const k=pick([1,2,3,4,6,8,9,10,12,14,15,16,18,20,22]),d=k*15,alts=[{k:(24-k)%24,msg:'That is measured <b>clockwise</b>. Angles are measured <b>anticlockwise</b> from the positive $x$-axis.'},{k:(12-k+24)%24,msg:'That is measured from the <b>negative</b> $x$-axis. Start from the positive $x$-axis (pointing right).'}].filter(a=>a.k!==k);
+ return{tp:'conv',q:String.raw`Click the circle to place a point at an angle of $${rpi(d)}$ radians, measured anticlockwise from the positive $x$-axis.`,dial:{k,alts},at:String.raw`$${rpi(d)}$ radians, which is $${d}^\circ$`,
+ steps:[String.raw`Convert to degrees: $${rpi(d)}\times\frac{180}{\pi}=${d}^\circ$.`,String.raw`Start at the positive $x$-axis (pointing right) and turn ${d}° anticlockwise. A quarter turn is $90^\circ=\frac{\pi}{2}$ and a half turn is $180^\circ=\pi$.`]}});
+// ---- Formula booklet and recall (Fundamental) ----
+GEN.bronze.push(()=>{const I=[['the small angle approximation $\\sin\\theta\\approx\\theta$ (for $\\theta$ in radians)',true,'It is given: look under "Small angle approximations".'],['the arc length formula $s=r\\theta$',false,'It is not given. The booklet has no arc length formula for A Level Mathematics. Learn it.'],['the sector area formula $A=\\frac12r^2\\theta$',false,'It is not given. A sector area only appears in the Further Mathematics pages, in a calculus form. Learn $\\frac12r^2\\theta$.'],['the conversion $180^\\circ=\\pi$ radians',false,'It is not given. This is the one fact that everything else rests on. Learn it.'],['the triangle area formula $\\frac12ab\\sin C$',false,'It is not given. You need it for segments, so learn it.'],['the addition formula $\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B$',true,'It is given under "Trigonometric identities", but it is not needed for radians questions.'],['the cosine rule $a^2=b^2+c^2-2bc\\cos A$',false,'It is not given. Learn it. It finds chord lengths.']],it=pick(I),ch=shuffle([0,1]),O=['Yes, it is given','No, you must learn it'],right=it[1]?0:1;
+ return{tp:'fb',q:String.raw`Is ${it[0]} given in the Edexcel A Level Mathematics (9MA0) formulae booklet?`,mc:ch.map(i=>O[i]),ci:ch.indexOf(right),mcwhy:ch.map(i=>i===right?null:(it[1]?'It is in the booklet. Check under the trigonometry headings.':it[2])),at:O[right],steps:[it[2],'Tip: if you are not sure, learn it. The things the booklet does give are mostly long or awkward formulas.']}});
+GEN.bronze.push(()=>{const V=[
+ {tp:'sec',q:'Which formula gives the area of a sector when $\\theta$ is in <b>radians</b>?',O:['$\\frac12r^2\\theta$',null],X:[['$r^2\\theta$','That is missing the $\\frac12$.'],['$\\frac12r\\theta$','That is not squared. The radius must be squared in an area.'],['$\\frac{\\theta}{360}\\times\\pi r^2$','That is the GCSE version, which needs $\\theta$ in <b>degrees</b>.']]},
+ {tp:'arc',q:'Which formula gives the arc length when $\\theta$ is in <b>radians</b>?',O:['$r\\theta$',null],X:[['$\\frac{\\theta}{360}\\times2\\pi r$','That is the GCSE version, which needs $\\theta$ in <b>degrees</b>.'],['$\\frac12r\\theta$','There is no half in the arc length formula.'],['$2\\pi r\\theta$','That is far too big: $2\\pi r$ is already the whole circumference.']]},
+ {tp:'seg',q:'Which formula gives the area of a segment when $\\theta$ is in <b>radians</b>?',O:['$\\frac12r^2(\\theta-\\sin\\theta)$',null],X:[['$\\frac12r^2(\\theta+\\sin\\theta)$','The triangle must be taken <i>away</i> from the sector, so subtract.'],['$\\frac12r^2\\theta-\\frac12r^2$','The triangle is $\\frac12r^2\\sin\\theta$, not $\\frac12r^2$ (that only works at $90^\\circ$).'],['$\\frac12r^2\\sin\\theta$','That is the area of the <b>triangle</b>, not the segment.']]}],v=pick(V),all=shuffle([v.O,...v.X]);
+ return{tp:v.tp,q:v.q,mc:all.map(a=>a[0]),ci:all.findIndex(a=>a[1]===null),mcwhy:all.map(a=>a[1]),at:v.O[0],steps:[String.raw`Think about where it comes from: the sector is the fraction $\frac{\theta}{2\pi}$ of a whole circle (radians), starting from the GCSE degree formula.`,String.raw`The correct formula is ${v.O[0]}.`]}});
+// ---- Intermediate ----
+GEN.silver.push(()=>{const r=pick([3,4,6,9,12]),d=pick([30,45,60,90,120,150]),n=r*d;
+ return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle $${d}^\circ$. Find the exact arc length. Type it like 5pi/3.`,cv:n*PI/180,exact:true,at:String.raw`${fp(n,180)}\text{ cm}`,sd:D('arc',r,d*PI/180,{rl:r+' cm',tl:d+'°',al:'s = ?'}),
+ diag:u=>cl(u[0],n)?String.raw`You used the angle in <b>degrees</b>. Convert to radians first ($\times\frac{\pi}{180}$), then use $s=r\theta$.`:null,
+ steps:[String.raw`$s=r\theta$ needs radians. Convert: $${d}^\circ=${rpi(d)}$ radians.`,String.raw`$s=${r}\times${rpi(d)}=${fp(n,180)}$ cm.`,String.raw`Leave $\pi$ in the answer because the question asks for an exact value.`]}});
+GEN.silver.push(()=>{const r=pick([4,5,8,10]),th=pick([.5,.8,1.2,1.6,2.5]),s=r2(r*th);
+ return{tp:'arc',q:String.raw`An arc of length ${s} cm is cut from a circle of radius ${r} cm. Find the angle at the centre, in radians.`,ans:[th],at:String(th),sd:D('arc',r,th,{rl:r+' cm',tl:'?',al:s+' cm'}),
+ diag:u=>cl(u[0],s*r)?String.raw`You multiplied. Rearranging $s=r\theta$ gives $\theta=\frac{s}{r}$, so <b>divide</b>.`:cl(u[0],th*180/PI)?'That is the angle in degrees. The question asks for radians.':cl(u[0],r/s)?String.raw`You divided the wrong way round. $\theta=\frac{s}{r}$ (arc length divided by radius).`:null,
+ steps:[String.raw`Use $s=r\theta$: $${s}=${r}\theta$.`,String.raw`Divide both sides by ${r}: $\theta=\frac{${s}}{${r}}=${th}$ radians.`]}});
+GEN.silver.push(()=>{const r=pick([4,6,8,12]),d=pick([30,45,60,90,120,150]),n=r*r*d;
+ return{tp:'sec',q:String.raw`A sector has radius ${r} cm and angle $${d}^\circ$. Find the exact area of the sector. Type it like 8pi/3.`,cv:n*PI/360,exact:true,at:String.raw`${fp(n,360)}\text{ cm}^2`,sd:D('sector',r,d*PI/180,{rl:r+' cm',tl:d+'°'}),
+ diag:u=>cl(u[0],.5*r*r*d)?String.raw`You used degrees in the formula. Convert the angle to radians first.`:cl(u[0],n*PI/180)?String.raw`You forgot the $\frac12$ in $A=\frac12r^2\theta$.`:null,
+ steps:[String.raw`Convert the angle: $${d}^\circ=${rpi(d)}$ radians.`,String.raw`$A=\frac12r^2\theta=\frac12\times${r*r}\times${rpi(d)}$.`,String.raw`$=${fp(n,360)}$ cm$^2$ (after multiplying and simplifying).`]}});
+GEN.silver.push(()=>{const r=pick([4,5,6,8,10]),th=pick([.5,1,1.5,2]),a=r2(.5*r*r*th);
+ return{tp:'sec',q:String.raw`A sector has angle ${th} radians and area ${a} cm$^2$. Find the radius, in cm.`,ans:[r],at:String(r),sd:D('sector',r,th,{rl:'r = ?',tl:String(th)}),
+ diag:u=>cl(u[0],2*a/th)?String.raw`That is $r^2$. Take the <b>square root</b> to find $r$.`:null,
+ steps:[String.raw`Use $A=\frac12r^2\theta$: $${a}=\frac12r^2\times${th}$.`,String.raw`Rearrange: $r^2=\frac{2\times${a}}{${th}}=${r*r}$.`,String.raw`Square root: $r=\sqrt{${r*r}}=${r}$ cm (a radius cannot be negative).`]}});
+GEN.silver.push(()=>{const r=pick([4,5,6,8,10]),th=pick([.5,.8,1.2,1.5]),s=r2(r*th),P=r2(2*r+s);
+ return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find the perimeter of the sector, in cm.`,ans:[P],at:String(P),sd:D('arc',r,th,{rl:r+' cm',tl:String(th),al:'s'}),
+ diag:u=>cl(u[0],s)?'That is only the <b>arc</b>. The perimeter goes all the way round, so add the two straight edges (the radii) as well.':cl(u[0],r+s)?'You added only <b>one</b> radius. The sector has two straight edges.':null,
+ steps:[String.raw`The arc is $s=r\theta=${r}\times${th}=${s}$ cm.`,String.raw`The perimeter is the arc plus two radii: $P=2r+s=${2*r}+${s}=${P}$ cm.`]}});
+GEN.silver.push(()=>{const dd=[30,45,60,90,120,135,150,210,225,240,300],d=pick(dd),opts=[d];if(!opts.includes(360-d))opts.push(360-d);if(180-d>0&&!opts.includes(180-d))opts.push(180-d);while(opts.length<4){const x=pick(dd);if(!opts.includes(x))opts.push(x)}
+ const all=shuffle(opts.slice(0,4)),why=x=>x===d?null:x===360-d?'That is the <b>reflex</b> angle, going the long way round. The shaded sector is the smaller one.':x===180-d?'That angle is measured from the <b>negative</b> $x$-axis. Measure from the positive $x$-axis.':`That angle is $${x}^\\circ$. Compare it with the shaded sector: is it bigger or smaller than a right angle ($\\frac{\\pi}{2}$)?`;
+ return{tp:'conv',q:String.raw`Which of these is the angle of the shaded sector, in radians?`,qsec:{mode:'plain',r:6,rmax:10,th:d*PI/180,tl:'?'},qalt:`A circle with a shaded sector starting at the positive x-axis and turning anticlockwise through ${d} degrees.`,mc:all.map(x=>'$'+rpi(x)+'$'),ci:all.indexOf(d),mcwhy:all.map(why),at:'$'+rpi(d)+'$',
+ steps:[String.raw`The sector starts at the positive $x$-axis and turns anticlockwise. Compare it with the axes: a quarter turn is $\frac{\pi}{2}$ and a half turn is $\pi$.`,String.raw`The shaded angle is $${d}^\circ$. Convert: $${d}\times\frac{\pi}{180}=${rpi(d)}$.`]}});
+GEN.silver.push(()=>{const k=pick([5,7,11,13,17,19,21,23]),d=k*15,alts=[{k:(24-k)%24,msg:'That is measured <b>clockwise</b>. Angles are measured <b>anticlockwise</b> from the positive $x$-axis.'},{k:(12-k+24)%24,msg:'That is measured from the <b>negative</b> $x$-axis. Start from the positive $x$-axis.'}].filter(a=>a.k!==k);
+ return{tp:'conv',q:String.raw`Click the circle to place a point at $${rpi(d)}$ radians, measured anticlockwise from the positive $x$-axis.`,dial:{k,alts},at:String.raw`$${rpi(d)}$ radians, which is $${d}^\circ$`,
+ steps:[String.raw`Convert: $${rpi(d)}\times\frac{180}{\pi}=${d}^\circ$.`,String.raw`Turn ${d}° anticlockwise from the positive $x$-axis. Each small mark on the circle is $15^\circ=\frac{\pi}{12}$.`]}});
+// ---- Exam mastery ----
+GEN.gold.push(()=>{const r=pick([6,8,10,12]),th=pick([.6,.8,1,1.2,1.4]),sec=.5*r*r*th,tri=.5*r*r*Math.sin(th),ans=r2(sec-tri);
+ return{tp:'seg',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find the area of the segment cut off by the chord joining the ends of the arc. Give your answer to 2 decimal places.`,ans:[ans],tol:Math.max(.011,.004*ans),at:String(ans),sd:D('segment',r,th,{rl:r+' cm',tl:String(th)}),
+ diag:u=>cl(u[0],sec)?'That is the <b>sector</b> area. A segment is the sector <i>minus the triangle</i>.':cl(u[0],.5*r*r*(th-Math.sin(th*PI/180)))?'Your calculator looks to be in <b>degree mode</b>. Switch to radians before working out $\\sin\\theta$.':cl(u[0],tri)?'That is the <b>triangle</b>. The segment is the sector minus the triangle.':cl(u[0],sec-.5*r*r)?String.raw`The triangle is $\frac12r^2\sin\theta$, not $\frac12r^2$.`:null,
+ steps:[String.raw`Segment $=$ sector $-$ triangle.`,String.raw`Sector: $\frac12r^2\theta=\frac12\times${r*r}\times${th}=${r2(sec)}$.`,String.raw`Triangle: $\frac12r^2\sin\theta=\frac12\times${r*r}\times\sin${th}=${r2(tri)}$ (calculator in radian mode).`,String.raw`Segment $=${r2(sec)}-${r2(tri)}=${ans}$ cm$^2$.`]}});
+GEN.gold.push(()=>{const r=pick([4,5,6,8,10]),th=pick([.5,.8,1.2,1.5,2]),A=r2(.5*r*r*th),s=r2(r*th);
+ return{tp:'arc',q:String.raw`A sector has radius ${r} cm and area ${A} cm$^2$. Find the length of its arc, in cm.`,ans:[s],at:String(s),sd:D('sector',r,th,{rl:r+' cm',tl:'?',al:'arc = ?'}),
+ diag:u=>cl(u[0],th)?String.raw`That is the angle $\theta$. The question asks for the <b>arc length</b>, which is $s=r\theta$.`:null,
+ steps:[String.raw`First find the angle. $A=\frac12r^2\theta$: $${A}=\frac12\times${r*r}\times\theta$.`,String.raw`So $\theta=\frac{2\times${A}}{${r*r}}=${th}$ radians.`,String.raw`Now the arc length: $s=r\theta=${r}\times${th}=${s}$ cm.`]}});
+GEN.gold.push(()=>{const [n,m]=pick([[1,3],[1,4],[1,6],[2,3],[3,4],[5,6]]),r=m*pick([1,2,3]),c=r*n/m;
+ return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle $${fp(n,m)}$ radians. Find the exact perimeter of the sector. Type it like 12+2pi.`,cv:2*r+c*PI,exact:true,at:String.raw`${2*r}+${c===1?'':c}\pi\text{ cm}`,sd:D('arc',r,n*PI/m,{rl:r+' cm',tl:'',al:'s'}),
+ diag:u=>cl(u[0],c*PI)?'That is only the arc. The perimeter also includes the two straight edges, $2r$.':null,
+ steps:[String.raw`Arc length: $s=r\theta=${r}\times${fp(n,m)}=${c===1?'':c}\pi$.`,String.raw`Perimeter $=2r+s=${2*r}+${c===1?'':c}\pi$ cm.`,String.raw`Leave the answer exact: do not turn it into a decimal.`]}});
+GEN.gold.push(()=>{const r=pick([4,5,6,8,10]),th=pick([.5,.8,1.2,1.5,2]),P=r2(2*r+r*th);
+ return{tp:'arc',q:String.raw`A sector of radius ${r} cm has perimeter ${P} cm. Find the angle of the sector, in radians.`,ans:[th],at:String(th),sd:D('arc',r,th,{rl:r+' cm',tl:'?',al:'s'}),
+ diag:u=>cl(u[0],P/r)?'You forgot to take away the two radii first. The perimeter is $2r+r\\theta$, so $r\\theta=P-2r$.':cl(u[0],P-2*r)?String.raw`That is the arc length $r\theta$. Divide by $r$ to find $\theta$.`:null,
+ steps:[String.raw`Perimeter $=2r+r\theta$: $${P}=${2*r}+${r}\theta$.`,String.raw`Subtract ${2*r}: $${r2(P-2*r)}=${r}\theta$.`,String.raw`Divide by ${r}: $\theta=${th}$ radians.`]}});
+GEN.gold.push(()=>{const R=pick([8,10,12]),r=pick([3,4,5,6]),th=pick([.5,1,1.5,2]),A=r2(.5*(R*R-r*r)*th);
+ return{tp:'seg',q:String.raw`Two sectors with the same centre and the same angle ${th} radians have radii ${R} cm and ${r} cm. Find the area of the shaded region between them, in cm$^2$.`,ans:[A],at:String(A),sd:D('sector',R,th,{rl:R+' cm',tl:String(th)}),
+ diag:u=>cl(u[0],.5*(R-r)*(R-r)*th)?String.raw`Square each radius <i>first</i>, then subtract: $R^2-r^2$, not $(R-r)^2$.`:null,
+ steps:[String.raw`The shaded region is the big sector minus the small sector.`,String.raw`Big: $\frac12\times${R}^2\times${th}=${r2(.5*R*R*th)}$. Small: $\frac12\times${r}^2\times${th}=${r2(.5*r*r*th)}$.`,String.raw`Shaded area $=${r2(.5*R*R*th)}-${r2(.5*r*r*th)}=${A}$ cm$^2$.`]}});
+GEN.gold.push(()=>{const k=pick([2,3,4,5]);
+ return{tp:'sec',q:String.raw`A sector has radius $r$ cm. The area of the sector, in cm$^2$, is ${k} times the length of its arc, in cm. Find $r$.`,ans:[2*k],at:String(2*k),
+ diag:u=>cl(u[0],k)?String.raw`You have lost the $\frac12$ in the area formula. $\frac12r^2\theta=${k}r\theta$ gives $\frac12r=${k}$.`:null,
+ steps:[String.raw`Area $=\frac12r^2\theta$ and arc $=r\theta$. The area is ${k} times the arc: $\frac12r^2\theta=${k}\times r\theta$.`,String.raw`Divide both sides by $r\theta$ (it is not zero): $\frac12r=${k}$.`,String.raw`So $r=${2*k}$ cm. The angle $\theta$ cancelled, so we did not need it.`]}});
+// ---- Exam-style, multi-part ----
+GEN.exam.push(()=>{const r=pick([5,6,8,10,12]),th=pick([.6,.8,1.2,1.5]),s=r2(r*th),P=r2(2*r+r*th),A=r2(.5*r*r*th);
+ return{tp:'mix',q:String.raw`A sector $OAB$ of a circle has centre $O$, radius ${r} cm and angle ${th} radians.`,qsec:D('sector',r,th,{rl:r+' cm',tl:String(th)}),qalt:`A sector with radius ${r} centimetres and angle ${th} radians.`,parts:[
+ {lab:'(a)',txt:String.raw`Find the arc length $AB$.`,marks:1,ans:[s],at:String(s),ms:[{c:'B1',d:`$s=r\\theta=${r}\\times${th}=${s}$.`,auto:1}]},
+ {lab:'(b)',txt:String.raw`Find the perimeter of the sector.`,marks:2,ans:[P],at:String(P),dg:u=>cl(u[0],s)?'The perimeter includes the two straight edges as well as the arc.':null,ms:[{c:'M1',d:`Adds the arc to two radii: $2\\times${r}+${s}$.`},{c:'A1',d:`$P=${P}$.`,auto:1}]},
+ {lab:'(c)',txt:String.raw`Find the area of the sector.`,marks:2,ans:[A],at:String(A),dg:u=>cl(u[0],r*r*th)?String.raw`You forgot the $\frac12$.`:null,ms:[{c:'M1',d:'Uses $A=\\frac12r^2\\theta$.'},{c:'A1',d:`$A=${A}$.`,auto:1}]}],
+ steps:[String.raw`<b>(a)</b> $s=r\theta=${r}\times${th}=${s}$ cm.`,String.raw`<b>(b)</b> $P=2r+s=${2*r}+${s}=${P}$ cm.`,String.raw`<b>(c)</b> $A=\frac12r^2\theta=\frac12\times${r*r}\times${th}=${A}$ cm$^2$.`]}});
+GEN.exam.push(()=>{const r=pick([6,8,10,12]),th=pick([.6,.8,1,1.2]),sec=r2(.5*r*r*th),tri=r2(.5*r*r*Math.sin(th)),seg=r2(.5*r*r*th-.5*r*r*Math.sin(th));
+ return{tp:'mix',q:String.raw`The diagram shows a sector of a circle with centre $O$, radius ${r} cm and angle ${th} radians. The chord $AB$ cuts off a segment (shaded orange). Give each answer to 2 decimal places.`,qsec:D('segment',r,th,{rl:r+' cm',tl:String(th)}),qalt:`A sector with a chord and the segment shaded, radius ${r} centimetres and angle ${th} radians.`,parts:[
+ {lab:'(a)',txt:String.raw`Find the area of the sector $OAB$.`,marks:2,ans:[sec],tol:.015,at:String(sec),dg:u=>cl(u[0],r*r*th)?String.raw`You forgot the $\frac12$.`:null,ms:[{c:'M1',d:'Uses $\\frac12r^2\\theta$.'},{c:'A1',d:`Sector $=${sec}$.`,auto:1}]},
+ {lab:'(b)',txt:String.raw`Find the area of the triangle $OAB$.`,marks:2,ans:[tri],tol:Math.max(.015,.004*tri),at:String(tri),dg:u=>cl(u[0],.5*r*r*Math.sin(th*PI/180))?'Your calculator looks to be in <b>degree mode</b>. Switch to radians.':null,ms:[{c:'M1',d:'Uses $\\frac12r^2\\sin\\theta$.'},{c:'A1',d:`Triangle $=${tri}$.`,auto:1}]},
+ {lab:'(c)',txt:String.raw`Find the area of the shaded segment.`,marks:1,ans:[seg],tol:Math.max(.02,.004*seg),at:String(seg),dg:u=>cl(u[0],sec)?'That is the sector. Take away the triangle.':null,ms:[{c:'A1',d:`Segment $=${sec}-${tri}=${seg}$.`,auto:1}]}],
+ steps:[String.raw`<b>(a)</b> $\frac12r^2\theta=\frac12\times${r*r}\times${th}=${sec}$.`,String.raw`<b>(b)</b> $\frac12r^2\sin\theta=\frac12\times${r*r}\times\sin${th}=${tri}$ (radian mode).`,String.raw`<b>(c)</b> Segment $=${sec}-${tri}=${seg}$ cm$^2$.`]}});
+GEN.exam.push(()=>{const r=pick([3,6,12]),d=pick([30,45,60,120,150]),n=r*d,m=r*r*d;
+ return{tp:'mix',q:String.raw`A sector has radius ${r} cm and angle $${d}^\circ$. Give exact answers, typed with pi (for example 5pi/3).`,qsec:D('sector',r,d*PI/180,{rl:r+' cm',tl:d+'°'}),qalt:`A sector with radius ${r} centimetres and angle ${d} degrees.`,parts:[
+ {lab:'(a)',txt:String.raw`Write the angle in radians.`,marks:1,cv:d*PI/180,exact:true,at:rpi(d),ms:[{c:'B1',d:`$${d}\\times\\frac{\\pi}{180}=${rpi(d)}$.`,auto:1}]},
+ {lab:'(b)',txt:String.raw`Find the arc length.`,marks:2,cv:n*PI/180,exact:true,at:fp(n,180),dg:u=>cl(u[0],n)?'You used degrees in $s=r\\theta$. Use the radians angle from part (a).':null,ms:[{c:'M1',d:'Uses $s=r\\theta$ with the angle in radians.'},{c:'A1',d:`$s=${fp(n,180)}$.`,auto:1}]},
+ {lab:'(c)',txt:String.raw`Find the area of the sector.`,marks:2,cv:m*PI/360,exact:true,at:fp(m,360),dg:u=>cl(u[0],m*PI/180)?String.raw`You forgot the $\frac12$.`:null,ms:[{c:'M1',d:'Uses $\\frac12r^2\\theta$ with the angle in radians.'},{c:'A1',d:`$A=${fp(m,360)}$.`,auto:1}]}],
+ steps:[String.raw`<b>(a)</b> $${d}^\circ=${d}\times\frac{\pi}{180}=${rpi(d)}$ radians.`,String.raw`<b>(b)</b> $s=r\theta=${r}\times${rpi(d)}=${fp(n,180)}$ cm.`,String.raw`<b>(c)</b> $A=\frac12r^2\theta=\frac12\times${r*r}\times${rpi(d)}=${fp(m,360)}$ cm$^2$.`]}});
+
+/* ---------- topics, saved progress ---------- */
+const TOPICS={conv:'Converting angles',arc:'Arc length & perimeter',sec:'Sector area',seg:'Segments & shaded regions',fb:'Formula booklet',mix:'Mixed exam-style'};
+const TIPS={conv:'Degrees to radians: multiply by pi/180. Radians to degrees: multiply by 180/pi. Radians should be the smaller numbers.',arc:'Convert to radians first. Perimeter = arc + two radii.',sec:'A = half r squared theta. Do not forget the half, and square only the radius.',seg:'Segment = sector minus triangle, where the triangle is half r squared sin theta. Calculator in radian mode.',fb:'None of the radian formulas are in the booklet. Learn: 180 degrees = pi, s = r theta, A = half r squared theta, segment = sector minus triangle, triangle = half ab sin C.',mix:'Show every step. Method marks are worth as much as the final answers.'};
+const SK='fm9ma0-radians-v1';let S={sc:0,st:0,best:0,n:0,ok:0,tp:{},sl:{},pr:{n:0,ok:0}};
+try{const j=JSON.parse(localStorage.getItem(SK)||'null');if(j&&typeof j.sc==='number')S=Object.assign(S,j)}catch(e){}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
+function stats(){$('#sScore').textContent=S.sc;$('#sStreak').textContent=S.st;$('#sBest').textContent=S.best;$('#sAcc').textContent=S.n?Math.round(100*S.ok/S.n)+'%':'–'}
+function record(tp,right,pts,extra,slip){S.n++;const t=S.tp[tp]||(S.tp[tp]={n:0,ok:0});t.n++;if(right){S.ok++;t.ok++;S.st++;S.best=Math.max(S.best,S.st);S.sc+=pts+(S.st>=3?1:0)}else{S.st=0;S.sc+=extra||0;if(slip){S.sl=S.sl||{};const k=String(slip).replace(/<[^>]+>/g,'').replace(/\$/g,'').slice(0,110);S.sl[k]=(S.sl[k]||0)+1}}save();stats();report()}
+function summary(){const r=Object.entries(S.tp).map(([k,v])=>`${TOPICS[k]||k}: ${v.ok}/${v.n}`).join('; ');return `9MA0 Radians practice. Score ${S.sc}, best streak ${S.best}, ${S.n} questions, accuracy ${S.n?Math.round(100*S.ok/S.n):0}%. By topic: ${r||'none yet'}.${S.pr&&S.pr.n?` Predictions ${S.pr.ok}/${S.pr.n}.`:''}`}
+function report(){const e=$('#rep');if(!e)return;const sl=Object.entries(S.sl||{}).sort((a,b)=>b[1]-a[1]).slice(0,3),slipsHTML=(sl.length?`<div class="bg-slate-50 border border-slate-200 rounded p-3"><b>Slips you keep making:</b><ul class="list-disc ml-5 mt-1">${sl.map(x=>`<li>${x[0]} <span class="text-slate-500">(${x[1]}×)</span></li>`).join('')}</ul></div>`:'')+(S.pr&&S.pr.n?`<p class="text-slate-600">Slider predictions: ${S.pr.ok} of ${S.pr.n} correct.</p>`:''),was=e.querySelector('details')&&e.querySelector('details').open,rows=Object.entries(S.tp).filter(([k,v])=>v.n);let weak=null;
+ rows.forEach(([k,v])=>{if(v.n>=2&&(!weak||v.ok/v.n<S.tp[weak].ok/S.tp[weak].n))weak=k});
+ e.innerHTML=`<details class="bg-white rounded-lg border border-slate-200 mt-4" ${was?'open':''}><summary class="p-4 font-semibold text-indigo-950 flex items-center gap-2"><span class="chev text-indigo-500">▶</span>My progress and weak spots</summary><div class="px-5 pb-5 space-y-2 text-sm">${rows.length?rows.map(([k,v])=>{const pc=Math.round(100*v.ok/v.n);return `<div><div class="flex justify-between"><span>${TOPICS[k]||k}</span><span>${v.ok}/${v.n} (${pc}%)</span></div><div class="h-2 bg-slate-200 rounded"><div class="h-2 rounded ${pc>=70?'bg-emerald-500':pc>=40?'bg-amber-500':'bg-red-500'}" style="width:${pc}%"></div></div></div>`}).join(''):'<p>Answer some questions and your results will appear here.</p>'}${weak?`<p class="bg-amber-50 border border-amber-200 rounded p-3"><b>Revise next: ${TOPICS[weak]}.</b> ${TIPS[weak]}</p>`:''}${slipsHTML}<div class="flex flex-wrap gap-2 pt-2"><button id="cp" class="rounded-md bg-indigo-900 text-white px-4 py-2">Copy summary to share</button><button id="rs" class="rounded-md border border-slate-300 px-4 py-2">Reset progress</button></div><textarea id="sm" readonly aria-label="Progress summary" class="hidden w-full border border-slate-300 rounded p-2 text-xs" rows="3"></textarea></div></details>`;
+ $('#cp').onclick=async()=>{const t=$('#sm');t.value=summary();t.classList.remove('hidden');t.select();try{await navigator.clipboard.writeText(t.value);$('#cp').textContent='Copied!'}catch(x){}};
+ $('#rs').onclick=()=>{if(confirm('Reset all saved progress?')){S={sc:0,st:0,best:0,n:0,ok:0,tp:{},sl:{},pr:{n:0,ok:0}};save();stats();report()}}}
+
+/* ---------- checking answers ---------- */
+function parseExpr(str){let t=str.toLowerCase().replace(/[−–]/g,'-').replace(/\s+/g,'').replace(/\^/g,'**').replace(/√/g,'sqrt');
+ if(!t||!/^[0-9x+\-*\/().a-z]*$/.test(t)||/[a-wyz]/.test(t.replace(/sqrt/g,'')))return null;
+ t=t.replace(/sqrt/g,'S').replace(/(\d|\)|x)(?=x|\(|S)/g,'$1*').replace(/\)(?=\d)/g,')*').replace(/S/g,'Math.sqrt');
+ try{const f=new Function('x','"use strict";return ('+t+')');f(1.5);return f}catch(e){return null}}
+function evalConst(str){let t=str.toLowerCase().replace(/[−–]/g,'-').replace(/\s+/g,'').replace(/π/g,'pi');
+ if(!t||!/^[0-9+\-*\/().pi]*$/.test(t))return null;
+ t=t.replace(/pi/g,'P').replace(/(\d|\)|P)(?=P|\()/g,'$1*').replace(/\)(?=\d)/g,')*').replace(/P/g,'(Math.PI)');
+ try{const v=new Function('"use strict";return ('+t+')')();return isFinite(v)?v:null}catch(e){return null}}
+function chkPart(Pt,str){
+ if(Pt.cv!==undefined){const v=evalConst(str);if(v===null)return{ok:false,bad:true};const near=Math.abs(v-Pt.cv)<=(Pt.tol||.006)*Math.max(1,Math.abs(Pt.cv));
+  if(near&&Pt.exact&&!/pi|π/i.test(str))return{ok:false,u:[v],alt:'This question asks for an <b>exact</b> answer, so leave $\\pi$ in your answer instead of writing a decimal.'};
+  return{ok:near,u:[v]}}
+ if(Pt.fn){const f=parseExpr(str);if(!f)return{ok:false,bad:true};const same=g=>[.5,1.25,2.5,4,6.5].every(d=>{const x=Pt.lo+2*Math.abs(Pt.lo)+d,a=f(x),b=g(x);return isFinite(a)&&isFinite(b)&&Math.abs(a-b)<1e-6*(1+Math.abs(b))});
+  if(same(Pt.fn))return{ok:true};const al=(Pt.alts||[]).find(a=>same(a.fn));return{ok:false,alt:al?al.msg:null}}
+ const u=nums(str);if(!u.length)return{ok:false,bad:true};const raw=u.slice(),a=Pt.ans.slice();if(Pt.un){u.sort((x,y)=>x-y);a.sort((x,y)=>x-y)}
+ return{ok:u.length===a.length&&u.every((v,i)=>Math.abs(v-a[i])<(Pt.tol||.011)),u:Pt.un?u:raw}}
+const kind=q=>q.mc?'mc':q.dial?'dial':q.parts?'parts':q.fn?'expr':'num';
+
+/* ---------- place-the-angle dial ---------- */
+function dialDraw(rev){const cv=$('#dc'),k=Q.dot,ang=(k===null||k===undefined)?null:k*PI/12;sector(cv,{mode:'dial',r:10,rmax:10,th:0,ang,tgt:rev?Q.dial.k*PI/12:null,tl:''});
+ const t=ang===null?'No point placed yet.':`Your point is at ${k*15}°, which is ${rpi(k*15)==='0'?'0':N(ang)} radians.`;$('#dro').textContent=t;cv.setAttribute('role','img');cv.setAttribute('aria-label','Circle with marks every 15 degrees. '+t+' Use the left and right arrow keys to move your point.')}
+function dialInit(){const cv=$('#dc');Q.dot=null;let on=false;
+ const ev=e=>{if(done)return;const r=cv.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=r.height/2-(e.clientY-r.top);let a=Math.atan2(y,x);if(a<0)a+=2*PI;Q.dot=Math.round(a/(PI/12))%24;dialDraw(false)};
+ cv.addEventListener('pointerdown',e=>{try{cv.setPointerCapture(e.pointerId)}catch(x){}on=true;ev(e)});cv.addEventListener('pointermove',e=>{if(on)ev(e)});cv.addEventListener('pointerup',()=>on=false);
+ cv.addEventListener('keydown',e=>{if(done)return;const s={ArrowLeft:1,ArrowRight:-1}[e.key];if(s){e.preventDefault();Q.dot=((Q.dot===null?0:Q.dot)+s+24)%24;dialDraw(false)}});dialDraw(false)}
+
+/* ---------- practice engine ---------- */
+const PTS={bronze:1,silver:2,gold:3,exam:1},CL={bronze:'bg-sky-100 text-sky-900',silver:'bg-indigo-100 text-indigo-900',gold:'bg-indigo-900 text-white',exam:'bg-slate-800 text-white'},LBL={bronze:'Fundamental',silver:'Intermediate',gold:'Exam mastery',exam:'Exam-style'};
+let filt='all',Q=null,sel=null,done=false,mk={auto:0,tot:0};
+$('#topicSel').innerHTML='<option value="all">All topics</option>'+Object.keys(TOPICS).map(k=>`<option value="${k}">${TOPICS[k]}</option>`).join('');
+function newQ(tier,gen){const tp=$('#topicSel').value;let q,t,gf,i=0;do{t=tier||(filt==='all'?pick(['bronze','silver','gold','exam']):filt);gf=(gen&&i===0)?gen:pick(GEN[t]);q=gf();i++}while(!(gen&&i===1)&&tp!=='all'&&q.tp!==tp&&i<120);q._g=gf;Q=q;Q.tier=t;sel=null;done=false;draw()}
+function draw(){const b=$('#qBox'),K=kind(Q);let inp='';
+ if(K==='mc')inp=`<div class="space-y-2" role="radiogroup" aria-label="Answer choices">${Q.mc.map((o,i)=>`<button class="opt w-full text-left border-2 border-slate-200 rounded-md p-3" role="radio" aria-checked="false" data-i="${i}">${o}</button>`).join('')}</div>`;
+ else if(K==='dial')inp=`<p class="text-sm text-slate-600 mb-2">Click or tap the circle to place your point (it snaps to the marks, 15° apart). Or use the left arrow to turn anticlockwise and the right arrow to turn clockwise.</p><canvas id="dc" class="drag" tabindex="0"></canvas><p id="dro" class="text-sm mt-2" aria-live="polite"></p>`;
+ else if(K==='parts')inp=Q.parts.map((p,i)=>`<div class="mb-3"><label for="pi${i}" class="block text-base" style="font-family:Georgia,serif"><b>${p.lab}</b> ${p.txt} <span class="text-slate-500 text-sm">[${p.marks} mark${p.marks>1?'s':''}]</span></label><input id="pi${i}" autocomplete="off" class="mt-1 w-full sm:w-96 border-2 border-slate-300 rounded-md px-3 py-2" placeholder="${p.fn?'Type an expression, e.g. (x-1)^2/4+3':'Type your answer'}"></div>`).join('');
+ else inp=`<input id="inp" autocomplete="off" aria-label="Your answer" class="w-full sm:w-96 border-2 border-slate-300 rounded-md px-3 py-2 text-base" placeholder="${K==='expr'?'Type an expression, e.g. 3+sqrt(x-4)':'Type your answer here'}">${K==='expr'?'<p class="text-xs text-slate-500 mt-1">Use x for the variable, ^ for powers and sqrt( ) for square roots, for example (x-1)^2/4+3. Any equivalent form is accepted.</p>':''}`;
+ b.innerHTML=`<div class="flex items-center gap-2 mb-3"><span class="text-xs font-semibold rounded-full px-3 py-1 ${CL[Q.tier]}">${LBL[Q.tier]}${Q.tier==='exam'?'':' · '+PTS[Q.tier]+' pt'+(PTS[Q.tier]>1?'s':'')}</span><span class="text-xs text-slate-500">${TOPICS[Q.tp]||''}</span></div>
+ <div class="text-lg leading-relaxed mb-4" style="font-family:Georgia,serif">${Q.q}</div>${Q.qsec?`<canvas id="qs" class="mb-4 sq" role="img" aria-label="${(Q.qalt||'Diagram of the sector').replace(/"/g,'')}"></canvas>`:''}${Q.qgr?`<canvas id="qc" class="mb-4" role="img" aria-label="${(Q.qalt||'Graph for this question').replace(/"/g,'')}"></canvas>`:''}${inp}
+ <div class="mt-4 flex flex-wrap gap-2"><button id="sub" class="rounded-md bg-indigo-900 text-white px-5 py-2 text-sm">Check my answer</button><button id="hint" class="rounded-md border border-slate-300 px-5 py-2 text-sm">Give me a hint</button><button id="skip" class="rounded-md border border-slate-300 px-5 py-2 text-sm">Different question, same level</button><span id="afterbtns" class="hidden contents"><button id="alike" class="rounded-md bg-emerald-700 text-white px-5 py-2 text-sm">Another like this one</button><button id="alvl" class="rounded-md bg-emerald-800 text-white px-5 py-2 text-sm">Another at this level</button><button id="nxt" class="rounded-md border border-emerald-700 text-emerald-800 px-5 py-2 text-sm">Next question</button></span></div><div id="hb" class="mt-3" aria-live="polite"></div><div id="fb" class="mt-4" aria-live="polite"></div>`;
+ ty(b);if(Q.qsec)sector($('#qs'),Q.qsec);if(Q.qgr){const g=Q.qgr;plot($('#qc'),g.c,{fit:fit(g.c.map(k=>[k.f,g.x0,g.x1]),g.pts),pts:g.pts,segs:g.segs})}$('#sub').onclick=mark;$('#skip').onclick=()=>newQ(Q.tier);$('#alike').onclick=()=>newQ(Q.tier,Q._g);$('#alvl').onclick=()=>newQ(Q.tier);$('#nxt').onclick=()=>newQ();
+ $('#hint').onclick=()=>{$('#hb').innerHTML=`<div class="rounded-md bg-amber-50 border border-amber-200 p-3 text-sm leading-relaxed"><b>Hint:</b> ${Q.steps[0]}</div>`;ty($('#hb'))};
+ $$('#qBox .opt').forEach(o=>o.onclick=()=>{if(done)return;sel=+o.dataset.i;$$('#qBox .opt').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-checked','false')});o.classList.add('sel');o.setAttribute('aria-checked','true')});
+ $$('#qBox input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')mark()}));if(K==='dial')dialInit()}
+function mark(){if(done)return;const K=kind(Q),warn=t=>{$('#fb').innerHTML=`<p class="text-sm text-amber-700">${t}</p>`};let right=false,earned=0,ms='',slip=null,slips=[];mk={auto:0,tot:0};
+ if(K==='mc'){if(sel===null)return warn('Pick an answer first.');right=sel===Q.ci;if(!right&&Q.mcwhy)slip=Q.mcwhy[sel]||null;$$('#qBox .opt').forEach((o,i)=>{if(i===Q.ci)o.classList.add('ok');else if(i===sel)o.classList.add('bad')})}
+ else if(K==='dial'){if(Q.dot===null||Q.dot===undefined)return warn('Click the circle to place your point first.');right=Q.dot===Q.dial.k;if(!right&&Q.dial.alts){const al=Q.dial.alts.find(a=>a.k===Q.dot);if(al)slip=al.msg}dialDraw(true)}
+ else if(K==='parts'){const rows=[];Q.parts.forEach((p,i)=>{p.r=chkPart(p,$('#pi'+i).value);if(!p.r.ok){const m=p.r.alt||(p.dg&&p.r.u?p.dg(p.r.u):null);if(m)slips.push(p.lab+' '+m)}const inp=$('#pi'+i);inp.classList.add(p.r.ok?'border-emerald-500':'border-red-500');
+   p.ms.forEach(m=>{mk.tot++;let got=null;if(m.auto){got=m.idx!==undefined?!!(p.r.u&&p.r.u[m.idx]!==undefined&&Math.abs(p.r.u[m.idx]-p.ans[m.idx])<.011):p.r.ok;if(got)mk.auto++}
+   rows.push(`<li class="flex gap-2 items-start"><span class="font-semibold w-8 shrink-0">${m.c}</span><span class="flex-1">${p.lab} ${m.d}</span>${m.auto?`<span class="${got?'text-emerald-700':'text-red-700'}">${got?'✓ awarded':'✗ not awarded'}</span>`:`<label class="text-xs whitespace-nowrap"><input type="checkbox" class="ms"> I did this</label>`}</li>`)})});
+  right=Q.parts.every(p=>p.r.ok);earned=mk.auto;ms=`<div class="rounded-md border border-slate-300 p-3 mb-3"><div class="font-semibold mb-2">Mark scheme: <span id="mtot"></span></div><ul class="space-y-2 text-sm">${rows.join('')}</ul><p class="text-xs text-slate-500 mt-2">Answer marks (B, A) are checked for you. Tick the method marks (M) you earned in your own working.</p></div>`}
+ else{const r=chkPart(Q,$('#inp').value);if(r.bad)return warn(K==='expr'?'I could not read that. Use x, ^, sqrt( ) and brackets, for example 2+sqrt(x-4).':'Type an answer first.');right=r.ok;if(!right)slip=r.alt||(Q.diag&&r.u?Q.diag(r.u):null);$('#inp').classList.add(right?'border-emerald-500':'border-red-500')}
+ done=true;record(Q.tp||'mix',right,K==='parts'?earned:PTS[Q.tier],K==='parts'?earned:0,slip||slips[0]||null);
+ $('#sub').classList.add('hidden');$('#hint').classList.add('hidden');$('#hb').innerHTML='';$('#skip').classList.add('hidden');$('#afterbtns').classList.remove('hidden');
+ const at=K==='parts'?Q.parts.map(p=>`${p.lab} $${p.at}$`).join(' &nbsp;&nbsp; '):(Q.at.includes('$')?Q.at:'$'+Q.at+'$');
+ const sh=right?'':(slip?[slip]:slips).map(m=>`<div class="rounded-md bg-amber-50 border border-amber-300 p-3 mb-3 text-sm leading-relaxed"><b>A common slip:</b> ${m}</div>`).join('');
+ $('#fb').innerHTML=`<div class="rounded-md p-3 mb-3 ${right?'bg-emerald-50 border border-emerald-300 text-emerald-900':'bg-red-50 border border-red-300 text-red-900'}"><b>${right?(K==='parts'?'Every answer correct. Well done.':'Correct. Well done.')+(S.st>=3?' Streak bonus: +1 point.':''):'Not quite.'}</b>${right?'':' The correct answer is '+at+'. Read through the steps below to see how to get there.'}</div>${sh}${ms}
+ <div class="rounded-md bg-slate-50 border border-slate-200 p-3"><div class="font-semibold text-indigo-950 mb-2">How to work it out</div><ol class="list-decimal ml-5 space-y-2 leading-relaxed">${Q.steps.map(x=>'<li>'+x+'</li>').join('')}</ol></div>
+ ${Q.sd?`<button id="gb" class="mt-3 rounded-md border border-slate-300 px-4 py-2 text-sm">Show this as a diagram</button><canvas id="gc" class="hidden mt-3 sq" role="img" aria-label="Diagram of the sector in the question"></canvas>`:''}`;
+ ty($('#fb'));
+ if(K==='parts'){const upd=()=>{$('#mtot').textContent=(mk.auto+$$('#fb .ms:checked').length)+' / '+mk.tot+' marks'};upd();$$('#fb .ms').forEach(c=>c.onchange=upd)}
+ const gb=$('#gb');if(gb)gb.onclick=()=>{const c=$('#gc');c.classList.toggle('hidden');const open=!c.classList.contains('hidden');gb.textContent=open?'Hide the diagram':'Show this as a diagram';if(open)sector(c,Q.sd)}}
+$$('.tier').forEach(b=>b.onclick=()=>{filt=b.dataset.tier;$$('.tier').forEach(x=>x.classList.toggle('on',x===b));newQ()});
+$('#topicSel').onchange=()=>newQ();
+
+/* ---------- spot the mistake ---------- */
+const SPOT=[
+()=>{const r=pick([4,5,6,8]),d=pick([30,60,90]);return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle $${d}^\circ$. Find the arc length. A student wrote:`,lines:[String.raw`The arc length formula is $s=r\theta$.`,String.raw`Substitute $r=${r}$ and $\theta=${d}$.`,String.raw`$s=${r}\times${d}=${r*d}$ cm.`],bad:1,why:String.raw`$s=r\theta$ only works when $\theta$ is in <b>radians</b>. The student put the degrees straight in.`,fix:String.raw`Convert first: $${d}^\circ=${rpi(d)}$ radians. Then $s=${r}\times${rpi(d)}=${fp(r*d,180)}$ cm.`}},
+()=>{const r=pick([4,6,8]),th=pick([1,1.5,2]);return{tp:'sec',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find its area. A student wrote:`,lines:[String.raw`The area of a sector is $A=r^2\theta$.`,String.raw`$A=${r}^2\times${th}=${r2(r*r*th)}$ cm$^2$.`],bad:0,why:String.raw`The formula is missing the $\frac12$. You can check it: the sector is the fraction $\frac{\theta}{2\pi}$ of the circle's area $\pi r^2$, which gives $\frac12r^2\theta$.`,fix:String.raw`$A=\frac12r^2\theta=\frac12\times${r*r}\times${th}=${r2(.5*r*r*th)}$ cm$^2$.`}},
+()=>{const r=pick([4,5,6,8]),th=pick([.5,.8,1.2,1.5]),s=r2(r*th);return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find its perimeter. A student wrote:`,lines:[String.raw`Arc length $s=r\theta=${r}\times${th}=${s}$ cm.`,String.raw`The perimeter is the distance all the way round the sector.`,String.raw`So the perimeter is ${s} cm.`],bad:2,why:String.raw`The student only counted the curved arc. Going all the way round the sector also means going along both straight edges.`,fix:String.raw`$P=2r+s=${2*r}+${s}=${r2(2*r+s)}$ cm.`}},
+()=>{const d=pick([60,90,120]);return{tp:'conv',q:String.raw`Write $${d}^\circ$ in radians. A student wrote:`,lines:[String.raw`I need to use $\pi=180^\circ$.`,String.raw`So I multiply by $\frac{180}{\pi}$.`,String.raw`$${d}\times\frac{180}{\pi}=\frac{${d*180}}{\pi}$.`],bad:1,why:String.raw`That rule turns radians <i>into</i> degrees. To go from degrees to radians multiply by $\frac{\pi}{180}$. A good check: radians should be the smaller numbers.`,fix:String.raw`$${d}\times\frac{\pi}{180}=${rpi(d)}$ radians.`}},
+()=>{const r=pick([8,10,12]),th=pick([.8,1.2]);return{tp:'seg',q:String.raw`A sector has radius ${r} cm and angle ${th} radians. Find the area of the segment. A student wrote:`,lines:[String.raw`Sector area $=\frac12r^2\theta=${r2(.5*r*r*th)}$.`,String.raw`Triangle area $=\frac12r^2\theta=${r2(.5*r*r*th)}$.`,String.raw`Segment $=$ sector $-$ triangle $=0$.`],bad:1,why:String.raw`The triangle has area $\frac12r^2\sin\theta$ (from $\frac12ab\sin C$). The student used $\theta$ instead of $\sin\theta$, which made the triangle the same size as the sector. An area of 0 should have warned them.`,fix:String.raw`Triangle $=\frac12\times${r*r}\times\sin${th}=${r2(.5*r*r*Math.sin(th))}$, so the segment is $${r2(.5*r*r*th)}-${r2(.5*r*r*Math.sin(th))}=${r2(.5*r*r*th-.5*r*r*Math.sin(th))}$ cm$^2$.`}},
+()=>{const r=pick([8,10]),th=pick([1.2,1.4]);return{tp:'seg',q:String.raw`Find the area of the triangle $OAB$ when $r=${r}$ cm and the angle at $O$ is ${th} radians. A student wrote:`,lines:[String.raw`Triangle $=\frac12r^2\sin\theta$.`,String.raw`$\sin${th}=${r4(Math.sin(th*PI/180))}$.`,String.raw`Triangle $=\frac12\times${r*r}\times${r4(Math.sin(th*PI/180))}=${r2(.5*r*r*Math.sin(th*PI/180))}$ cm$^2$.`],bad:1,why:String.raw`The calculator was in <b>degree mode</b>, so it worked out $\sin${th}^\circ$. A sine of 0.02 for an angle of more than 1 radian is far too small (the angle is about $${r2(th*180/PI)}^\circ$).`,fix:String.raw`In radian mode $\sin${th}=${r4(Math.sin(th))}$, so the triangle is $\frac12\times${r*r}\times${r4(Math.sin(th))}=${r2(.5*r*r*Math.sin(th))}$ cm$^2$.`}},
+()=>{const r=pick([6,9,12]);return{tp:'arc',q:String.raw`A sector has radius ${r} cm and angle $\frac{\pi}{3}$ radians. Find the exact arc length. A student wrote:`,lines:[String.raw`$s=r\theta=${r}\times\frac{\pi}{3}$.`,String.raw`$=${r}\pi$.`,String.raw`So the arc length is $${r}\pi$ cm.`],bad:1,why:String.raw`The student lost the division by 3. Multiplying by $\frac{\pi}{3}$ means $\pi$ is divided by 3, not left alone.`,fix:String.raw`$${r}\times\frac{\pi}{3}=\frac{${r}\pi}{3}=${r/3}\pi$ cm.`}}];
+let SP=null,spDone=false;
+function newSpot(){SP=pick(SPOT)();spDone=false;spDraw()}
+function spDraw(){const b=$('#spBox');
+ b.innerHTML=`<div class="text-lg leading-relaxed mb-3" style="font-family:Georgia,serif">${SP.q}</div><p class="text-sm text-slate-600 mb-2">Click the <b>first line that contains a mistake</b>.</p><div class="space-y-2">${SP.lines.map((l,i)=>`<button class="opt w-full text-left border-2 border-slate-200 rounded-md p-3" data-i="${i}"><span class="font-semibold text-slate-500 mr-2">Line ${i+1}:</span>${l}</button>`).join('')}</div><div id="spfb" class="mt-4" aria-live="polite"></div><button id="spn" class="hidden mt-3 rounded-md bg-emerald-700 text-white px-5 py-2 text-sm">Next one</button>`;ty(b);
+ $$('#spBox .opt').forEach(o=>o.onclick=()=>{if(spDone)return;spDone=true;const i=+o.dataset.i,ok=i===SP.bad;$$('#spBox .opt').forEach((x,j)=>{if(j===SP.bad)x.classList.add('ok');else if(j===i)x.classList.add('bad')});record(SP.tp,ok,2);
+  $('#spfb').innerHTML=`<div class="rounded-md p-3 mb-3 ${ok?'bg-emerald-50 border border-emerald-300 text-emerald-900':'bg-red-50 border border-red-300 text-red-900'}"><b>${ok?'Spotted it!':'Not that line.'}</b> The first mistake is on line ${SP.bad+1}.</div><div class="rounded-md bg-slate-50 border border-slate-200 p-3 space-y-2 leading-relaxed"><p><b>Why it is wrong:</b> ${SP.why}</p><p><b>The correct working:</b> ${SP.fix}</p></div>`;ty($('#spfb'));$('#spn').classList.remove('hidden')});
+ $('#spn').onclick=newSpot}
+
+/* ---------- tabs, accessibility, init ---------- */
+const TABS=['theory','examples','practice','spot'];
+function goTab(n){$$('.tab').forEach(x=>{const o=x.dataset.tab===n;x.classList.toggle('on',o);x.classList.toggle('bg-slate-100',!o);x.setAttribute('aria-selected',String(o))});TABS.forEach(id=>$('#'+id).classList.toggle('hidden',id!==n));if(n==='theory')drawAll($('#cards'));window.scrollTo(0,0)}
+$$('.tab').forEach(t=>{t.setAttribute('role','tab');t.onclick=()=>goTab(t.dataset.tab)});
+const PK='fm9ma0-prefs';let PR={};try{PR=JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){}
+function prefs(){document.documentElement.style.fontSize=PR.big?'125%':'';document.body.classList.toggle('hc',!!PR.hc);$('#tsz').setAttribute('aria-pressed',String(!!PR.big));$('#tsz').textContent=PR.big?'Smaller text':'Larger text';$('#thc').setAttribute('aria-pressed',String(!!PR.hc));try{localStorage.setItem(PK,JSON.stringify(PR))}catch(e){}}
+$('#tsz').onclick=()=>{PR.big=!PR.big;prefs()};$('#thc').onclick=()=>{PR.hc=!PR.hc;prefs()};
+window.addEventListener('load',()=>{ty(document.body);prefs();W.def.draw();newQ();newSpot();stats();report()});
+window.addEventListener('resize',()=>drawAll($('#cards')));
+</script>
+</body>
+</html>
